@@ -1,0 +1,40 @@
+{
+  "citizen_01_eligible": {
+    "citizen_id": "CITIZEN_001_SC_STUDENT",
+    "facts": {
+      "caste_category": "SC",
+      "education_level": "10th",
+      "income_threshold": 180000,
+      "occupation": "student",
+      "existing_scheme_beneficiary": "none"
+    }
+  },
+  "citizen_02_ineligible_income": {
+    "citizen_id": "CITIZEN_002_HIGH_INCOME",
+    "facts": {
+      "caste_category": "SC",
+      "education_level": "10th",
+      "income_threshold": 320000,
+      "occupation": "student",
+      "existing_scheme_beneficiary": "none"
+    }
+  },
+  "citizen_03_ineligible_exclusion": {
+    "citizen_id": "CITIZEN_003_EMPLOYED",
+    "facts": {
+      "caste_category": "SC",
+      "education_level": "10th",
+      "income_threshold": 150000,
+      "occupation": "employed",
+      "existing_scheme_beneficiary": "none"
+    }
+  },
+  "citizen_04_needs_more_info": {
+    "citizen_id": "CITIZEN_004_MISSING_INCOME",
+    "facts": {
+      "caste_category": "SC",
+      "education_level": "10th",
+      "occupation": "student"
+    }
+  }
+}

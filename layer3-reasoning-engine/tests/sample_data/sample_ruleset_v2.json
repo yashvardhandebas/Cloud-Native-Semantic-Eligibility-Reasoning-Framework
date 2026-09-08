@@ -1,0 +1,91 @@
+{
+  "notification_id": "post_matric_sc_scholarship_demo",
+  "scheme_name": "Centrally Sponsored Post-Matric Scholarship Scheme for SC Students",
+  "source_language": "en",
+  "version": 2,
+  "effective_date": "2024-07-01",
+  "conditions": [
+    {
+      "field": "caste_category",
+      "operator": "eq",
+      "value": "SC",
+      "unit": null,
+      "raw_text": "Candidate must belong to Scheduled Caste (SC) category of the state.",
+      "depends_on_field": null
+    },
+    {
+      "field": "education_level",
+      "operator": "eq",
+      "value": "10th",
+      "unit": null,
+      "raw_text": "Candidate must have successfully completed 10th standard (Matriculation) from a recognized secondary education board.",
+      "depends_on_field": null
+    },
+    {
+      "field": "income_threshold",
+      "operator": "lte",
+      "value": 300000,
+      "unit": "INR",
+      "raw_text": "Amended: Total annual family income from all sources must not exceed Rs. 3,00,000 per annum (increased from Rs. 2,50,000).",
+      "depends_on_field": "caste_category"
+    }
+  ],
+  "documents": [
+    {
+      "document_type": "caste_certificate",
+      "required_for": "caste verification",
+      "raw_text": "Caste Certificate issued by competent revenue authority."
+    },
+    {
+      "document_type": "income_certificate",
+      "required_for": "income verification",
+      "raw_text": "Income Certificate valid for current financial year."
+    },
+    {
+      "document_type": "residence_proof",
+      "required_for": "domicile/residence verification",
+      "raw_text": "Domicile / Residence certificate."
+    },
+    {
+      "document_type": "bank_passbook",
+      "required_for": "bank account verification",
+      "raw_text": "Bank passbook copy seeded with Aadhaar number."
+    }
+  ],
+  "benefits": [
+    {
+      "benefit_type": "cash_transfer",
+      "amount": null,
+      "frequency": "annual",
+      "raw_text": "full reimbursement of compulsory non-refundable academic tuition fees"
+    },
+    {
+      "benefit_type": "cash_transfer",
+      "amount": 1500,
+      "frequency": "monthly",
+      "raw_text": "Amended: increased monthly maintenance allowance of Rs. 1500 for hostellers"
+    },
+    {
+      "benefit_type": "cash_transfer",
+      "amount": 650,
+      "frequency": "monthly",
+      "raw_text": "Amended: increased monthly maintenance allowance of Rs. 650 for day scholars"
+    }
+  ],
+  "exclusions": [
+    {
+      "field": "occupation",
+      "operator": "eq",
+      "value": "employed",
+      "unit": null,
+      "raw_text": "Students who are employed ... are not eligible under this scheme."
+    },
+    {
+      "field": "existing_scheme_beneficiary",
+      "operator": "eq",
+      "value": "government scholarship or stipend",
+      "unit": null,
+      "raw_text": "Students ... availing any other government scholarship or stipend are not eligible under this scheme."
+    }
+  ]
+}
