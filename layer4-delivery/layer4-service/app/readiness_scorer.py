@@ -7,7 +7,7 @@ distinguishes mutable vs immutable criteria, and provides citizen-facing actiona
 guidance with exact values and operators.
 """
 
-from typing import Any, Dict, List, Set, Tuple
+from typing import Any, Dict, List, Optional, Set, Tuple
 from app.schema import (
     ClauseEvaluation,
     ClauseReadinessDetail,

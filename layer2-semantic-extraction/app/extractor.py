@@ -6,6 +6,7 @@ from groq import Groq
 from app.config import settings
 from app.ontology import OntologyField, DocumentType, BenefitType, Operator
 from app.schema import ExtractedRuleSet
+from app.ontology_validation import validate_and_normalize_ruleset
 
 logger = logging.getLogger(__name__)
 
@@ -137,16 +138,16 @@ PM-KISAN Samman Nidhi Scheme: All landholding farmer families across India havin
             ],
             "exclusions": [
                 {
-                    "field": "occupation",
+                    "field": "institutional_landholder",
                     "operator": "eq",
-                    "value": "institutional_landholder",
+                    "value": True,
                     "unit": None,
                     "raw_text": "Institutional landholders"
                 },
                 {
-                    "field": "income_threshold",
-                    "operator": "gt",
-                    "value": "income_tax_payer",
+                    "field": "income_tax_payer_status",
+                    "operator": "eq",
+                    "value": True,
                     "unit": None,
                     "raw_text": "individuals who paid income tax in the last assessment year are strictly ineligible"
                 }
@@ -329,5 +330,5 @@ class RuleExtractor:
         if not data.get("source_language"):
             data["source_language"] = language
 
-        # Validate against Pydantic model
-        return ExtractedRuleSet.model_validate(data)
+        validated = ExtractedRuleSet.model_validate(data)
+        return validate_and_normalize_ruleset(validated)

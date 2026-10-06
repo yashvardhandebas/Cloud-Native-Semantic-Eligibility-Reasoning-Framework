@@ -34,7 +34,14 @@ python -m pytest tests -q
 
 The Layer 3 script loads `tests/sample_data/sample_ruleset.json`, which describes the Post-Matric SC Scholarship Scheme. It creates Scheme, Condition, Document, Benefit, and Exclusion nodes. It then loads the same ruleset again to demonstrate idempotency: duplicate nodes are not created.
 
-The Layer 4 script demonstrates three cases:
+Optional Layer 3 citizen evaluation (feeds the same three Layer 4 demo cases):
+
+```powershell
+cd ..\layer3-reasoning-engine
+python -m pytest tests\test_evaluation_engine.py tests\test_rule_evolution.py -q
+```
+
+The Layer 4 script demonstrates three cases (Layer 3 `EligibilityResult` payloads, not hand-written stubs):
 
 1. Eligible: all three conditions pass and the readiness score is `100/100`.
 2. Needs more information: income is missing, confidence is `0.67`, and an income certificate is recommended.
@@ -73,4 +80,4 @@ The extractor returns a validated JSON ruleset containing conditions, documents,
 
 ## 6. Honest limitation to mention
 
-The current repository demonstrates the individual implementation layers and their data contracts. The final production wiring is not yet present: there is no frontend/API delivery application, and the Layer 3 citizen-fact comparison algorithm still needs to be connected before the system can accept a citizen profile end to end.
+The repository demonstrates ingestion, extraction, graph storage, citizen evaluation, and readiness scoring offline. Not yet present: FastAPI gateway, Docker Compose stack, Streamlit dashboard, multilingual embedding pipeline, and full Neo4j-backed point-in-time queries in production Cypher (mock graph supports history and `as_of` queries in tests).

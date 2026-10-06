@@ -342,9 +342,11 @@ class GraphBuilder:
                     "value": cond.value,
                     "unit": cond.unit,
                     "raw_text": cond.raw_text,
+                    "depends_on_field": cond.depends_on_field,
                     "version": version,
                     "valid_from": timestamp_now,
                     "valid_to": None,
+                    "is_current": True,
                 },
             )
             mock.merge_relationship(scheme_id, "HAS_CONDITION", cid)

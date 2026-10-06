@@ -2,6 +2,7 @@ from enum import Enum
 
 class OntologyField(str, Enum):
     """Normalized ontology fields for eligibility conditions and exclusions."""
+    AGE = "age"
     INCOME_THRESHOLD = "income_threshold"
     AGE_MIN = "age_min"
     AGE_MAX = "age_max"
@@ -16,6 +17,11 @@ class OntologyField(str, Enum):
     MARITAL_STATUS = "marital_status"
     EDUCATION_LEVEL = "education_level"
     EXISTING_SCHEME_BENEFICIARY = "existing_scheme_beneficiary"
+    GOVERNMENT_EMPLOYMENT_STATUS = "government_employment_status"
+    INCOME_TAX_PAYER_STATUS = "income_tax_payer_status"
+    RESIDENCE_STATE = "residence_state"
+    CONSTITUTIONAL_POST_HOLDER = "constitutional_post_holder"
+    INSTITUTIONAL_LANDHOLDER = "institutional_landholder"
 
 
 class DocumentType(str, Enum):

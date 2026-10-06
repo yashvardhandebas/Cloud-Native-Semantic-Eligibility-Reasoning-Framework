@@ -1,7 +1,7 @@
 import logging
 from abc import ABC, abstractmethod
 from datetime import datetime, timezone
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Set, Tuple
 from neo4j import GraphDatabase, Driver, Session
 
 from app.config import settings
@@ -207,8 +207,21 @@ class MockGraphClient(BaseGraphClient):
             "properties": dict(properties or {}),
         })
 
-    def get_scheme_subgraph(self, scheme_id: str) -> Dict[str, Any]:
-        """Fetch full subgraph for a given scheme."""
+    def _node_active_at(self, node: Dict[str, Any], as_of: Optional[str]) -> bool:
+        if not as_of:
+            return node.get("valid_to") in (None, "")
+        valid_from = node.get("valid_from") or ""
+        valid_to = node.get("valid_to")
+        if valid_from and valid_from > as_of:
+            return False
+        if valid_to and valid_to <= as_of:
+            return False
+        return True
+
+    def get_scheme_subgraph(
+        self, scheme_id: str, as_of: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """Fetch subgraph for a given scheme, optionally at a point in time."""
         scheme_node = self.nodes.get(scheme_id)
         if not scheme_node:
             return {}
@@ -221,24 +234,47 @@ class MockGraphClient(BaseGraphClient):
         overrides = []
         requires_doc = []
 
+        if as_of:
+            # Historical view: select clause nodes by validity window (edges may have been rewired).
+            by_field: Dict[str, Dict[str, Any]] = {}
+            for node in self.nodes.values():
+                if node.get("scheme_id") != scheme_id:
+                    continue
+                if not self._node_active_at(node, as_of):
+                    continue
+                label = node.get("_label")
+                if label == "Condition":
+                    field = str(node.get("field", node.get("id", "")))
+                    by_field[field] = node
+                elif label == "Document":
+                    documents.append(node)
+                elif label == "Benefit":
+                    benefits.append(node)
+                elif label == "Exclusion":
+                    exclusions.append(node)
+            conditions = list(by_field.values())
+        else:
+            for rel in self.relationships:
+                if rel["from_id"] == scheme_id:
+                    target = self.nodes.get(rel["to_id"], {})
+                    if not target or not self._node_active_at(target, as_of):
+                        continue
+                    if rel["rel_type"] == "HAS_CONDITION":
+                        conditions.append(target)
+                    elif rel["rel_type"] == "HAS_DOCUMENT":
+                        documents.append(target)
+                    elif rel["rel_type"] == "HAS_BENEFIT":
+                        benefits.append(target)
+                    elif rel["rel_type"] == "HAS_EXCLUSION":
+                        exclusions.append(target)
+
         for rel in self.relationships:
-            if rel["from_id"] == scheme_id:
-                target = self.nodes.get(rel["to_id"], {})
-                if rel["rel_type"] == "HAS_CONDITION":
-                    conditions.append(target)
-                elif rel["rel_type"] == "HAS_DOCUMENT":
-                    documents.append(target)
-                elif rel["rel_type"] == "HAS_BENEFIT":
-                    benefits.append(target)
-                elif rel["rel_type"] == "HAS_EXCLUSION":
-                    exclusions.append(target)
-            elif rel["rel_type"] == "REQUIRES_DOCUMENT":
+            if rel["rel_type"] == "REQUIRES_DOCUMENT":
                 requires_doc.append(rel)
             elif rel["rel_type"] == "DEPENDS_ON":
                 depends_on.append(rel)
             elif rel["rel_type"] == "OVERRIDES":
                 overrides.append(rel)
-
         return {
             "scheme": scheme_node,
             "conditions": conditions,

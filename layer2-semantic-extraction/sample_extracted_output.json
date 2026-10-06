@@ -1,5 +1,5 @@
 {
-  "notification_id": "pm_kisan_full_2024",
+  "notification_id": "pm_kisan_2024_001",
   "scheme_name": "Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)",
   "source_language": "en",
   "conditions": [
@@ -60,12 +60,8 @@
     },
     {
       "field": "occupation",
-      "operator": "in_list",
-      "value": [
-        "MP",
-        "MLA",
-        "MLC"
-      ],
+      "operator": "eq",
+      "value": "member_of_parliament_or_state_legislature",
       "unit": null,
       "raw_text": "Former and present Members of Parliament (Lok Sabha/Rajya Sabha), Members of Legislative Assemblies or Councils"
     },
@@ -79,7 +75,7 @@
     {
       "field": "income_threshold",
       "operator": "eq",
-      "value": "taxpayer",
+      "value": "paid_income_tax_last_assessment_year",
       "unit": null,
       "raw_text": "All persons who paid Income Tax in the last assessment year"
     },
