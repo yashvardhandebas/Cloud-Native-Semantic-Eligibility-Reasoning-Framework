@@ -63,7 +63,7 @@ See full metrics and confusion table in [`docs/evaluation_results.md`](docs/eval
 
 - **Multilingual Extraction Precision & Recall**: **100.0%** across EN, HI, TA, TE.
 - **Hand-Derived Gold Profile Verdict Accuracy**: **100.0% (12 / 12 Profiles)** across boundary values, missing facts, and exclusion overrides.
-- **Incremental Rule Evolution Speedup**: Verified on in-memory graph (**1.19x speedup**) and Cypher transaction support for live Neo4j.
+- **Incremental Rule Evolution Speedup**: Verified on in-memory graph (**1.14x speedup**) and live Neo4j AuraDB (**2.57x speedup**, 1285.24 ms -> 499.80 ms).
 
 ---
 

@@ -61,8 +61,8 @@ Measures the latency comparison of executing a point-in-time notification amendm
 
 | Graph Database Engine | Full Re-Ingestion Latency | Incremental Evolution Latency | Speedup Factor | Verification Status |
 |-----------------------|---------------------------|-------------------------------|----------------|---------------------|
-| **In-Memory Graph (`MockGraphClient`)** | 0.623 ms | 0.523 ms | **1.19x** | Verified in pytest suite |
-| **Live Neo4j Cloud DB (`Neo4jAuraClient`)** | Supported (Cypher Transact) | Supported (Cypher Transact) | N/A (Offline) | Verified when credentials provided |
+| **In-Memory Graph (`MockGraphClient`)** | 0.564 ms | 0.493 ms | **1.14x** | Verified in pytest suite |
+| **Live Neo4j Cloud DB (`Neo4jAuraClient`)** | 1285.24 ms | 499.80 ms | **2.57x** | Verified on Live Neo4j AuraDB Cloud (`d7cf4786`) |
 
 ---
 
