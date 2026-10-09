@@ -1,0 +1,8 @@
+--- Testing separate encoding (max similarity per field) ---
+OntologyField.INCOME_THRESHOLD: max_sim = 0.9773 (best desc: ஆண்டு வருமானம் ரூ. 2.5 லட்சத்திற்கு மிகாமல் இருக்க வேண்டும்)
+OntologyField.INSTITUTIONAL_LANDHOLDER: max_sim = 0.8327 (best desc: நிறுவன நில உரிமையாளர்கள் நிறுவன நிலம்)
+OntologyField.INCOME_TAX_PAYER_STATUS: max_sim = 0.8995 (best desc: గత అసెస్మెంట్ సంవత్సరంలో ఆదాయపు పన్ను చెల్లించిన వారు)
+OntologyField.CONSTITUTIONAL_POST_HOLDER: max_sim = 0.7167 (best desc: அரசியலமைப்பு பதவிகளை வகிப்பவர்கள்)
+OntologyField.GOVERNMENT_EMPLOYMENT_STATUS: max_sim = 0.7363 (best desc: ప్రభుత్వ ఉద్యోగులు మరియు పింఛనుదారులు)
+OntologyField.CASTE_CATEGORY: max_sim = 0.8404 (best desc: ஆதிதிராவிடர் பழங்குடியினர் சாதி பிரிவு பிற்படுத்தப்பட்டோர்)
+OntologyField.AGE_MIN: max_sim = 0.8531 (best desc: குறைந்தபட்ச வயது ஆண்டுகள் பூர்த்தியடைந்திருக்க வேண்டும்)

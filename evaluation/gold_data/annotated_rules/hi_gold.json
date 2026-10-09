@@ -1,0 +1,22 @@
+{
+  "notification_id": "01_pm_kisan_hi",
+  "scheme_name": "प्रधानमंत्री किसान सम्मान निधि योजना (PM-KISAN)",
+  "source_language": "hi",
+  "conditions": [
+    {"field": "occupation", "operator": "eq", "value": "farmer"}
+  ],
+  "documents": [
+    {"document_type": "aadhaar_card", "required_for": "identity proof"},
+    {"document_type": "bank_passbook", "required_for": "bank transfer"},
+    {"document_type": "land_record", "required_for": "land proof"}
+  ],
+  "benefits": [
+    {"benefit_type": "cash_transfer", "amount": 6000, "frequency": "annual"}
+  ],
+  "exclusions": [
+    {"field": "institutional_landholder", "operator": "eq", "value": true},
+    {"field": "constitutional_post_holder", "operator": "eq", "value": true},
+    {"field": "government_employment_status", "operator": "eq", "value": true},
+    {"field": "income_tax_payer_status", "operator": "eq", "value": true}
+  ]
+}

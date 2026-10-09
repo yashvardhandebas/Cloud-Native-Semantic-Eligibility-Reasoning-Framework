@@ -78,3 +78,44 @@ def test_point_in_time_income_threshold(evolved_graph):
         facts,
     )
     assert result_new.verdict.value == "eligible"
+
+
+def test_amendment_income_ceiling_250k_to_300k():
+    """
+    Item 5: Test simulating an amendment (income ceiling 250000 -> 300000) asserting:
+    1. Only condition:income_threshold clause changes.
+    2. Old version is superseded (is_current = False, valid_to is set).
+    3. Point-in-time query with as_of returns old version (250000), without as_of returns new version (300000).
+    """
+    client = MockGraphClient()
+    builder = GraphBuilder(client=client)
+    base = Path(__file__).parent / "sample_data" / "sample_ruleset.json"
+    amended = Path(__file__).parent / "sample_data" / "sample_ruleset_v2.json"
+
+    builder.ingest_ruleset(base)
+    old_node = next(
+        n for n in client.nodes.values()
+        if n.get("_label") == "Condition" and n.get("field") == "income_threshold"
+    )
+    old_timestamp = old_node["valid_from"]
+
+    engine = RuleEvolutionEngine(client)
+    diff = engine.evolve_ruleset(amended)
+
+    # 1. Assert condition:income_threshold clause changed
+    assert "condition:income_threshold" in diff["changed_clauses"]
+    assert "condition:caste_category" in diff["unchanged_clauses"]
+
+    # 2. Assert old version is superseded
+    updated_old_node = client.nodes[old_node["id"]]
+    assert updated_old_node["is_current"] is False
+    assert updated_old_node["valid_to"] is not None
+
+    # 3. Assert as_of query returns correct versions
+    subgraph_old = client.get_scheme_subgraph("post_matric_sc_scholarship_demo", as_of=old_timestamp)
+    income_cond_old = next(c for c in subgraph_old["conditions"] if c["field"] == "income_threshold")
+    assert income_cond_old["value"] == 250000
+
+    subgraph_current = client.get_scheme_subgraph("post_matric_sc_scholarship_demo")
+    income_cond_current = next(c for c in subgraph_current["conditions"] if c["field"] == "income_threshold")
+    assert income_cond_current["value"] == 300000

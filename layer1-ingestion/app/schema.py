@@ -25,12 +25,14 @@ class PageOCRResult(BaseModel):
     """OCR result for a single page of a multi-page document."""
     page_number: int = Field(..., description="1-based page number")
     raw_text: str = Field(default="", description="Raw OCR text extracted from this page")
+    cleaned_text: str = Field(default="", description="Cleaned OCR text extracted from this page")
     confidence: Optional[float] = Field(None, ge=0.0, le=100.0, description="Average OCR confidence percentage")
 
 
 class OCRResult(BaseModel):
     """Aggregated output from OCR extraction engine."""
     raw_text: str = Field(..., description="Full concatenated text across all pages")
+    cleaned_text: str = Field(default="", description="Cleaned concatenated text across all pages")
     page_count: int = Field(default=1, ge=1, description="Total number of processed pages")
     pages: List[PageOCRResult] = Field(default_factory=list, description="Page-by-page OCR results")
 

@@ -1,0 +1,20 @@
+{
+  "notification_id": "01_rythu_bharosa_te",
+  "scheme_name": "వైఎస్ఆర్ రైతు భరోసా",
+  "source_language": "te",
+  "conditions": [
+    {"field": "occupation", "operator": "eq", "value": "farmer"},
+    {"field": "income_threshold", "operator": "lte", "value": 250000}
+  ],
+  "documents": [
+    {"document_type": "aadhaar_card", "required_for": "identity proof"},
+    {"document_type": "land_record", "required_for": "land proof"}
+  ],
+  "benefits": [
+    {"benefit_type": "cash_transfer", "amount": 13500, "frequency": "annual"}
+  ],
+  "exclusions": [
+    {"field": "institutional_landholder", "operator": "eq", "value": true},
+    {"field": "income_tax_payer_status", "operator": "eq", "value": true}
+  ]
+}

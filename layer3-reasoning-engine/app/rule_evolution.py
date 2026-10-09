@@ -371,9 +371,112 @@ class RuleEvolutionEngine:
         ]
 
     def _evolve_neo4j(self, ruleset: ExtractedRuleSetInput) -> Dict[str, Any]:
-        from app.graph_builder import GraphBuilder
+        scheme_id = ruleset.notification_id
+        timestamp_now = datetime.now(timezone.utc).isoformat()
+        changed: List[str] = []
+        unchanged: List[str] = []
+        superseded: List[str] = []
 
-        logger.warning(
-            "Neo4j incremental evolution falls back to full MERGE ingest until Cypher diff is implemented."
-        )
-        return GraphBuilder(client=self.client).ingest_ruleset(ruleset)
+        # Check existing scheme
+        check_q = "MATCH (s:Scheme {id: $scheme_id}) RETURN s"
+        res = self.client.execute_query(check_q, {"scheme_id": scheme_id})
+        if not res:
+            from app.graph_builder import GraphBuilder
+            return GraphBuilder(client=self.client).ingest_ruleset(ruleset)
+
+        # Update scheme node version
+        upd_scheme_q = """
+        MATCH (s:Scheme {id: $scheme_id})
+        SET s.version = $version, s.source_language = $lang
+        """
+        self.client.execute_write(upd_scheme_q, {
+            "scheme_id": scheme_id,
+            "version": ruleset.version,
+            "lang": ruleset.source_language,
+        })
+
+        # Process conditions
+        active_conds_q = """
+        MATCH (s:Scheme {id: $scheme_id})-[:HAS_CONDITION]->(c:Condition)
+        WHERE c.is_current = true OR c.valid_to IS NULL
+        RETURN c
+        """
+        active_conds = [r["c"] for r in self.client.execute_query(active_conds_q, {"scheme_id": scheme_id})]
+        active_by_field = {c.get("field"): c for c in active_conds if c.get("field")}
+
+        condition_id_map: Dict[str, str] = {}
+        for cond in ruleset.conditions:
+            field = cond.field
+            incoming = {
+                "field": cond.field,
+                "operator": cond.operator,
+                "value": cond.value,
+                "unit": cond.unit,
+                "depends_on_field": cond.depends_on_field,
+                "raw_text": cond.raw_text,
+            }
+            current = active_by_field.get(field)
+            if current and _clause_signature("condition", current) == _clause_signature("condition", incoming):
+                condition_id_map[field] = current["id"]
+                unchanged.append(f"condition:{field}")
+                continue
+
+            if current:
+                current_id = current["id"]
+                supersede_q = """
+                MATCH (c:Condition {id: $id})
+                SET c.valid_to = $now, c.is_current = false
+                """
+                self.client.execute_write(supersede_q, {"id": current_id, "now": timestamp_now})
+                superseded.append(current_id)
+
+            cid = ExtractedRuleSetInput.generate_clause_id(
+                scheme_id, "condition", field, ruleset.version
+            )
+            condition_id_map[field] = cid
+            create_cond_q = """
+            MATCH (s:Scheme {id: $scheme_id})
+            MERGE (c:Condition {id: $cid})
+            SET c.scheme_id = $scheme_id,
+                c.field = $field,
+                c.operator = $operator,
+                c.value = $value,
+                c.unit = $unit,
+                c.raw_text = $raw_text,
+                c.version = $version,
+                c.valid_from = $now,
+                c.valid_to = null,
+                c.is_current = true,
+                c.depends_on_field = $depends_on
+            MERGE (s)-[:HAS_CONDITION]->(c)
+            """
+            self.client.execute_write(create_cond_q, {
+                "scheme_id": scheme_id,
+                "cid": cid,
+                "field": cond.field,
+                "operator": cond.operator,
+                "value": cond.value,
+                "unit": cond.unit,
+                "raw_text": cond.raw_text,
+                "version": ruleset.version,
+                "now": timestamp_now,
+                "depends_on": cond.depends_on_field,
+            })
+
+            if current:
+                amend_q = """
+                MATCH (old:Condition {id: $old_id}), (new:Condition {id: $new_id})
+                MERGE (old)-[:AMENDED_BY]->(new)
+                """
+                self.client.execute_write(amend_q, {"old_id": current["id"], "new_id": cid})
+
+            changed.append(f"condition:{field}")
+
+        return {
+            "scheme_id": scheme_id,
+            "version": ruleset.version,
+            "changed_clauses": changed,
+            "unchanged_clauses": unchanged,
+            "superseded_node_ids": superseded,
+            "status": "evolved_neo4j",
+        }

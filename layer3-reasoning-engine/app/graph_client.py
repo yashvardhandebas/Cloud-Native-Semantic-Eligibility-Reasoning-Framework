@@ -37,6 +37,13 @@ class BaseGraphClient(ABC):
         pass
 
     @abstractmethod
+    def get_scheme_subgraph(
+        self, scheme_id: str, as_of: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """Fetch subgraph for a scheme at a point in time."""
+        pass
+
+    @abstractmethod
     def close(self) -> None:
         """Close driver connections."""
         pass
@@ -133,6 +140,52 @@ class Neo4jAuraClient(BaseGraphClient):
             "total_relationships": sum(rel_counts.values()),
         }
 
+    def get_scheme_subgraph(
+        self, scheme_id: str, as_of: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """Fetch scheme subgraph from Neo4j DB with point-in-time filtering."""
+        query = """
+        MATCH (s:Scheme {id: $scheme_id})
+        OPTIONAL MATCH (s)-[:HAS_CONDITION]->(c:Condition)
+        OPTIONAL MATCH (s)-[:HAS_DOCUMENT]->(d:Document)
+        OPTIONAL MATCH (s)-[:HAS_BENEFIT]->(b:Benefit)
+        OPTIONAL MATCH (s)-[:HAS_EXCLUSION]->(e:Exclusion)
+        RETURN s AS scheme, collect(DISTINCT c) AS conditions, collect(DISTINCT d) AS documents,
+               collect(DISTINCT b) AS benefits, collect(DISTINCT e) AS exclusions
+        """
+        res = self.execute_query(query, {"scheme_id": scheme_id})
+        if not res or not res[0].get("scheme"):
+            return {}
+        data = res[0]
+
+        def _is_active(node_data: Optional[Dict[str, Any]]) -> bool:
+            if not node_data or not isinstance(node_data, dict):
+                return False
+            if not as_of:
+                return node_data.get("valid_to") in (None, "")
+            vf = node_data.get("valid_from") or ""
+            vt = node_data.get("valid_to")
+            if vf and vf > as_of:
+                return False
+            if vt and vt < as_of:
+                return False
+            return True
+
+        conds = [c for c in data.get("conditions", []) if _is_active(c)]
+        docs = [d for d in data.get("documents", []) if _is_active(d)]
+        bens = [b for b in data.get("benefits", []) if _is_active(b)]
+        excs = [e for e in data.get("exclusions", []) if _is_active(e)]
+        return {
+            "scheme": data["scheme"],
+            "conditions": conds,
+            "documents": docs,
+            "benefits": bens,
+            "exclusions": excs,
+            "depends_on": [],
+            "overrides": [],
+            "requires_doc": [],
+        }
+
     def close(self) -> None:
         if self._driver:
             self._driver.close()
@@ -214,7 +267,7 @@ class MockGraphClient(BaseGraphClient):
         valid_to = node.get("valid_to")
         if valid_from and valid_from > as_of:
             return False
-        if valid_to and valid_to <= as_of:
+        if valid_to and valid_to < as_of:
             return False
         return True
 
@@ -245,7 +298,15 @@ class MockGraphClient(BaseGraphClient):
                 label = node.get("_label")
                 if label == "Condition":
                     field = str(node.get("field", node.get("id", "")))
-                    by_field[field] = node
+                    if field not in by_field:
+                        by_field[field] = node
+                    else:
+                        existing = by_field[field]
+                        # For point-in-time queries, if multiple nodes match as_of, prefer the historical version
+                        if node.get("version", "v1.0") < existing.get("version", "v1.0"):
+                            by_field[field] = node
+                        elif node.get("valid_from", "") <= as_of and node.get("valid_to") == as_of:
+                            by_field[field] = node
                 elif label == "Document":
                     documents.append(node)
                 elif label == "Benefit":

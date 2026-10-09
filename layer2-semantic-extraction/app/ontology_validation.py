@@ -62,9 +62,48 @@ def _remap_exclusion(exc: Exclusion) -> Exclusion:
     return Exclusion.model_validate(data)
 
 
+def _normalize_condition(cond: Condition) -> Condition:
+    data = cond.model_dump()
+    field = cond.field
+    val = cond.value
+    op = cond.operator
+
+    # Numeric threshold normalization
+    numeric_fields = {
+        OntologyField.INCOME_THRESHOLD,
+        OntologyField.ACADEMIC_PERCENTAGE,
+        OntologyField.AGE_MIN,
+        OntologyField.AGE_MAX,
+    }
+    if field in numeric_fields:
+        if isinstance(val, str):
+            clean_val = re.sub(r"[^\d.]", "", val)
+            if clean_val:
+                try:
+                    data["value"] = float(clean_val) if "." in clean_val else int(clean_val)
+                except ValueError:
+                    pass
+        if field == OntologyField.INCOME_THRESHOLD and op == Operator.EQ and isinstance(data.get("value"), (int, float)):
+            data["operator"] = Operator.LTE
+
+    # Caste category normalization
+    if field == OntologyField.CASTE_CATEGORY and isinstance(val, str):
+        uval = val.strip().upper()
+        if uval in ("SC", "SCHEDULED CASTE"):
+            data["value"] = "SC"
+        elif uval in ("ST", "SCHEDULED TRIBE"):
+            data["value"] = "ST"
+        elif uval in ("OBC", "OTHER BACKWARD CLASS"):
+            data["value"] = "OBC"
+
+    return Condition.model_validate(data)
+
+
 def validate_and_normalize_ruleset(ruleset: ExtractedRuleSet) -> ExtractedRuleSet:
-    """Apply controlled vocabulary corrections without calling the LLM again."""
+    """Apply controlled vocabulary corrections and general field/value pair validations."""
+    conditions: List[Condition] = [_normalize_condition(c) for c in ruleset.conditions]
     exclusions: List[Exclusion] = [_remap_exclusion(e) for e in ruleset.exclusions]
     payload = ruleset.model_dump()
+    payload["conditions"] = [c.model_dump() for c in conditions]
     payload["exclusions"] = [e.model_dump() for e in exclusions]
     return ExtractedRuleSet.model_validate(payload)

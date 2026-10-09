@@ -22,6 +22,7 @@ class OntologyField(str, Enum):
     RESIDENCE_STATE = "residence_state"
     CONSTITUTIONAL_POST_HOLDER = "constitutional_post_holder"
     INSTITUTIONAL_LANDHOLDER = "institutional_landholder"
+    ACADEMIC_PERCENTAGE = "academic_percentage"
 
 
 class DocumentType(str, Enum):

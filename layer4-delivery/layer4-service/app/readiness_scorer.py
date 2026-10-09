@@ -235,3 +235,13 @@ def calculate_readiness(result: EligibilityResult) -> ReadinessAssessment:
         clause_breakdown=clause_breakdown,
         citizen_summary=citizen_summary,
     )
+
+
+def compute_readiness_score(
+    eligibility_payload: Dict[str, Any], provided_documents: Optional[List[str]] = None
+) -> float:
+    """Convenience helper returning float readiness score directly."""
+    from app.schema import EligibilityResult
+    result = EligibilityResult.model_validate(eligibility_payload)
+    assessment = calculate_readiness(result)
+    return assessment.readiness_score

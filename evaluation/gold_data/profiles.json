@@ -1,0 +1,98 @@
+[
+  {
+    "id": "profile_1",
+    "name": "Hand-Derived: Eligible SC Student",
+    "scheme_id": "post_matric_sc_scholarship_demo",
+    "source_notification": "02_post_matric_scholarship.txt",
+    "facts": {"caste_category": "SC", "income_threshold": 210000, "education_level": "10th", "income_tax_payer_status": false},
+    "expected_verdict": "eligible"
+  },
+  {
+    "id": "profile_2",
+    "name": "Hand-Derived: Boundary Value Exact Income Ceiling (Rs 250,000)",
+    "scheme_id": "post_matric_sc_scholarship_demo",
+    "source_notification": "02_post_matric_scholarship.txt",
+    "facts": {"caste_category": "SC", "income_threshold": 250000, "education_level": "10th", "income_tax_payer_status": false},
+    "expected_verdict": "eligible"
+  },
+  {
+    "id": "profile_3",
+    "name": "Hand-Derived: Boundary Value Exceeded (Rs 250,001)",
+    "scheme_id": "post_matric_sc_scholarship_demo",
+    "source_notification": "02_post_matric_scholarship.txt",
+    "facts": {"caste_category": "SC", "income_threshold": 250001, "education_level": "10th", "income_tax_payer_status": false},
+    "expected_verdict": "ineligible"
+  },
+  {
+    "id": "profile_4",
+    "name": "Hand-Derived: High Income SC Student (Rs 320,000)",
+    "scheme_id": "post_matric_sc_scholarship_demo",
+    "source_notification": "02_post_matric_scholarship.txt",
+    "facts": {"caste_category": "SC", "income_threshold": 320000, "education_level": "10th", "income_tax_payer_status": false},
+    "expected_verdict": "ineligible"
+  },
+  {
+    "id": "profile_5",
+    "name": "Hand-Derived: Non-SC Student Category (General)",
+    "scheme_id": "post_matric_sc_scholarship_demo",
+    "source_notification": "02_post_matric_scholarship.txt",
+    "facts": {"caste_category": "GENERAL", "income_threshold": 180000, "education_level": "10th", "income_tax_payer_status": false},
+    "expected_verdict": "ineligible"
+  },
+  {
+    "id": "profile_6",
+    "name": "Hand-Derived: Missing Income Fact",
+    "scheme_id": "post_matric_sc_scholarship_demo",
+    "source_notification": "02_post_matric_scholarship.txt",
+    "facts": {"caste_category": "SC", "education_level": "10th"},
+    "expected_verdict": "needs_more_info"
+  },
+  {
+    "id": "profile_7",
+    "name": "Hand-Derived: Exclusion Override (Income Tax Payer)",
+    "scheme_id": "post_matric_sc_scholarship_demo",
+    "source_notification": "02_post_matric_scholarship.txt",
+    "facts": {"caste_category": "SC", "income_threshold": 200000, "education_level": "10th", "income_tax_payer_status": true},
+    "expected_verdict": "ineligible"
+  },
+  {
+    "id": "profile_8",
+    "name": "Hand-Derived: Exclusion Override (Institutional Landholder)",
+    "scheme_id": "pm_kisan_demo",
+    "source_notification": "01_pm_kisan.txt",
+    "facts": {"occupation": "farmer", "institutional_landholder": true},
+    "expected_verdict": "ineligible"
+  },
+  {
+    "id": "profile_9",
+    "name": "Hand-Derived: Exclusion Override (Constitutional Post Holder)",
+    "scheme_id": "pm_kisan_demo",
+    "source_notification": "01_pm_kisan.txt",
+    "facts": {"occupation": "farmer", "constitutional_post_holder": true},
+    "expected_verdict": "ineligible"
+  },
+  {
+    "id": "profile_10",
+    "name": "Hand-Derived: Unmet Condition (Below 10th Education)",
+    "scheme_id": "post_matric_sc_scholarship_demo",
+    "source_notification": "02_post_matric_scholarship.txt",
+    "facts": {"caste_category": "SC", "income_threshold": 200000, "education_level": "Below 10th", "income_tax_payer_status": false},
+    "expected_verdict": "ineligible"
+  },
+  {
+    "id": "profile_11",
+    "name": "Hand-Derived: Eligible ST Student",
+    "scheme_id": "post_matric_sc_scholarship_demo",
+    "source_notification": "02_post_matric_scholarship.txt",
+    "facts": {"caste_category": "ST", "income_threshold": 150000, "education_level": "12th", "income_tax_payer_status": false},
+    "expected_verdict": "eligible"
+  },
+  {
+    "id": "profile_12",
+    "name": "Hand-Derived: Missing Caste Category Fact",
+    "scheme_id": "post_matric_sc_scholarship_demo",
+    "source_notification": "02_post_matric_scholarship.txt",
+    "facts": {"income_threshold": 200000, "education_level": "10th"},
+    "expected_verdict": "needs_more_info"
+  }
+]

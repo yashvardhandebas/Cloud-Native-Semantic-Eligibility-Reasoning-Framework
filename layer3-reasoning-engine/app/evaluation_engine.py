@@ -23,6 +23,9 @@ def _normalize_scalar(value: Any) -> Any:
     return value
 
 
+import re
+
+
 def _coerce_number(value: Any) -> Optional[float]:
     if value is None:
         return None
@@ -30,8 +33,12 @@ def _coerce_number(value: Any) -> Optional[float]:
         return float(value)
     if isinstance(value, str):
         cleaned = value.replace(",", "").replace("Rs.", "").replace("rs.", "").strip()
+        m_below = re.search(r"below\s*(\d+)", cleaned, re.IGNORECASE)
+        if m_below:
+            return float(m_below.group(1)) - 1.0
+        cleaned_num = re.sub(r"^(\d+)(?:st|nd|rd|th)$", r"\1", cleaned, flags=re.IGNORECASE)
         try:
-            return float(cleaned)
+            return float(cleaned_num)
         except ValueError:
             return None
     return None
@@ -120,6 +127,11 @@ def _build_clause_evaluation(
         )
 
     if not present or citizen_value is None:
+        reason = (
+            f"Missing citizen fact '{field}' for exclusion rule. Needs verification."
+            if as_exclusion
+            else f"Missing citizen fact '{field}'. Verification cannot proceed."
+        )
         return ClauseEvaluation(
             clause_id=clause_id,
             clause_type=clause_type,
@@ -129,7 +141,7 @@ def _build_clause_evaluation(
             citizen_value=None,
             status=EvaluationStatus.UNKNOWN,
             raw_text=raw_text,
-            reason=f"Missing citizen fact '{field}'. Verification cannot proceed.",
+            reason=reason,
             prerequisite_met=True,
         )
 
@@ -347,9 +359,7 @@ class EligibilityEvaluator:
         return f"Eligibility determination for {name}: {verdict.value}."
 
     def _fetch_subgraph_neo4j(self, scheme_id: str, as_of: Optional[str]) -> Dict[str, Any]:
-        raise NotImplementedError(
-            "Neo4j subgraph fetch for evaluation is not implemented; use MockGraphClient for offline tests."
-        )
+        return self.client.get_scheme_subgraph(scheme_id, as_of=as_of)
 
 
 def evaluate_citizen(

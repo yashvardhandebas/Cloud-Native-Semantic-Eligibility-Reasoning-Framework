@@ -6,7 +6,7 @@ diagnoses missing facts and required supporting documents, and estimates an
 explainable confidence score (0.0 to 1.0).
 """
 
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from app.schema import (
     EligibilityResult,
     EvidenceCompletionSummary,
@@ -136,3 +136,11 @@ def analyze_evidence_completion(result: EligibilityResult) -> EvidenceCompletion
         missing_evidence=missing_items,
         explanation=explanation,
     )
+
+
+def build_evidence_plan(
+    eligibility_payload: Dict[str, Any], provided_documents: Optional[List[str]] = None
+) -> EvidenceCompletionSummary:
+    """Convenience builder parsing dict eligibility payload and returning evidence summary."""
+    result = EligibilityResult.model_validate(eligibility_payload)
+    return analyze_evidence_completion(result)

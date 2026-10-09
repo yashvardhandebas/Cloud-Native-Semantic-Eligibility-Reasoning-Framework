@@ -35,8 +35,9 @@ layer2-semantic-extraction/
 │   ├── ontology.py           # Fixed vocabulary Enums for normalization
 │   ├── schema.py             # Pydantic models for clause schemas & ExtractedRuleSet
 │   ├── extractor.py          # Groq API client with few-shot prompt & JSON retry logic
-│   ├── normalizer.py         # Value normalization onto ontology fields
-│   └── main.py               # FastAPI application with /extract and /health
+│   ├── ontology_validation.py # Post-extraction validation and ontology mis-assignment correction
+│   ├── clause_mapper.py       # Multilingual embeddings and clause-to-ontology mapping
+│   └── main.py                # FastAPI application with /extract and /health
 └── tests/
     ├── __init__.py
     ├── test_extractor.py     # Unit tests with mocked Groq completions

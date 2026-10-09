@@ -1,0 +1,21 @@
+{
+  "notification_id": "01_magalir_urimai_ta",
+  "scheme_name": "கலைஞர் மகளிர் உரிமைத் திட்டம்",
+  "source_language": "ta",
+  "conditions": [
+    {"field": "gender", "operator": "eq", "value": "female"},
+    {"field": "age_min", "operator": "gte", "value": 21},
+    {"field": "income_threshold", "operator": "lte", "value": 250000}
+  ],
+  "documents": [
+    {"document_type": "ration_card", "required_for": "family proof"},
+    {"document_type": "aadhaar_card", "required_for": "identity proof"}
+  ],
+  "benefits": [
+    {"benefit_type": "cash_transfer", "amount": 1000, "frequency": "monthly"}
+  ],
+  "exclusions": [
+    {"field": "income_tax_payer_status", "operator": "eq", "value": true},
+    {"field": "government_employment_status", "operator": "eq", "value": true}
+  ]
+}

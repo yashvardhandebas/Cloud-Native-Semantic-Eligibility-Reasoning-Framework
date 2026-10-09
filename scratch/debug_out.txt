@@ -1,0 +1,10 @@
+Clause: குடும்பத்தின் ஆண்டு வருமானம் ரூ. 2.50 லட்சத்திற்கு மிகாமல் இருக்க வேண்டும்
+Result field: OntologyField.CONSTITUTIONAL_POST_HOLDER
+Similarity: 0.6064903736114502
+Field OntologyField.INCOME_THRESHOLD: similarity 0.5309995412826538
+Field OntologyField.INSTITUTIONAL_LANDHOLDER: similarity 0.18963590264320374
+Field OntologyField.INCOME_TAX_PAYER_STATUS: similarity 0.45934629440307617
+Field OntologyField.CONSTITUTIONAL_POST_HOLDER: similarity 0.6064903736114502
+Field OntologyField.GOVERNMENT_EMPLOYMENT_STATUS: similarity 0.3361656367778778
+Field OntologyField.CASTE_CATEGORY: similarity 0.5506504774093628
+Field OntologyField.AGE_MIN: similarity 0.5405616760253906

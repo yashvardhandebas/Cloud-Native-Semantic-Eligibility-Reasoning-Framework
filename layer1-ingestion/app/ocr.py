@@ -6,6 +6,7 @@ from typing import List, Optional, Sequence, Union
 from PIL import Image
 import pytesseract
 
+from app.cleaner import clean_ocr_text
 from app.config import settings
 from app.schema import OCRResult, PageOCRResult
 
@@ -155,6 +156,7 @@ class TesseractOCREngine(BaseOCREngine):
     ) -> PageOCRResult:
         """Run Tesseract on a single PIL Image and compute confidence metrics."""
         raw_text = pytesseract.image_to_string(image, lang=lang_str)
+        cleaned = clean_ocr_text(raw_text)
 
         # Calculate average word confidence
         confidence: Optional[float] = None
@@ -177,6 +179,7 @@ class TesseractOCREngine(BaseOCREngine):
         return PageOCRResult(
             page_number=page_num,
             raw_text=raw_text,
+            cleaned_text=cleaned,
             confidence=confidence,
         )
 
@@ -192,6 +195,7 @@ class TesseractOCREngine(BaseOCREngine):
 
         return OCRResult(
             raw_text=page_result.raw_text,
+            cleaned_text=page_result.cleaned_text,
             page_count=1,
             pages=[page_result],
         )
@@ -205,7 +209,7 @@ class TesseractOCREngine(BaseOCREngine):
         scale = settings.OCR_DPI / 72.0
         images = pdf_to_images(pdf_input, scale=scale)
         if not images:
-            return OCRResult(raw_text="", page_count=0, pages=[])
+            return OCRResult(raw_text="", cleaned_text="", page_count=0, pages=[])
 
         lang_str = self._resolve_tesseract_languages(languages)
         pages: List[PageOCRResult] = []
@@ -214,10 +218,12 @@ class TesseractOCREngine(BaseOCREngine):
             page_res = self._ocr_single_image(img, page_num=idx, lang_str=lang_str)
             pages.append(page_res)
 
-        full_text = "\n\n".join(p.raw_text.strip() for p in pages if p.raw_text.strip())
+        full_raw = "\n\n".join(p.raw_text.strip() for p in pages if p.raw_text.strip())
+        full_cleaned = clean_ocr_text(full_raw)
 
         return OCRResult(
-            raw_text=full_text,
+            raw_text=full_raw,
+            cleaned_text=full_cleaned,
             page_count=len(pages),
             pages=pages,
         )
