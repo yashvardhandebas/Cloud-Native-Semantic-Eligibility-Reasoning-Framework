@@ -114,3 +114,16 @@ services:
       - GATEWAY_URL=http://gateway:8000
     depends_on:
       - gateway
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: welfare_frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_API_BASE_URL=http://gateway:8000
+    depends_on:
+      - gateway
+
