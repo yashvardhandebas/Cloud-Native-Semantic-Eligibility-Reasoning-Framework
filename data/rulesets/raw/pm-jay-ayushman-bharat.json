@@ -1,0 +1,44 @@
+{
+  "notification_id": "pm-jay-ayushman-bharat",
+  "scheme_name": "Ayushman Bharat Pradhan Mantri Jan Arogya Yojana (AB-PMJAY)",
+  "source_language": "en",
+  "extraction_mode": "mocked_rule_mapper",
+  "conditions": [
+    {
+      "field": "bpl_status",
+      "operator": "eq",
+      "value": true,
+      "unit": null,
+      "raw_text": "Families identified as deprived or vulnerable under SECC 2011 criteria or senior citizen aged 70+."
+    }
+  ],
+  "documents": [
+    {
+      "document_type": "aadhaar_card",
+      "required_for": "identity and age verification",
+      "raw_text": "Valid Aadhaar Card for e-KYC"
+    },
+    {
+      "document_type": "ration_card",
+      "required_for": "family composition verification",
+      "raw_text": "Ration Card or Family Composite ID"
+    }
+  ],
+  "benefits": [
+    {
+      "benefit_type": "health_cover",
+      "amount": 500000,
+      "frequency": "annual",
+      "raw_text": "Cashless health cover up to Rs. 5,00,000 per family per year for secondary and tertiary care hospitalization."
+    }
+  ],
+  "exclusions": [
+    {
+      "field": "existing_scheme_beneficiary",
+      "operator": "eq",
+      "value": "cghs_echs_capf",
+      "unit": null,
+      "raw_text": "Beneficiary families already covered under CGHS, ECHS, or CAPF health schemes."
+    }
+  ]
+}

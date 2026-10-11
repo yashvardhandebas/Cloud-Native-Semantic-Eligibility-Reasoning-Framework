@@ -23,6 +23,14 @@ class OntologyField(str, Enum):
     CONSTITUTIONAL_POST_HOLDER = "constitutional_post_holder"
     INSTITUTIONAL_LANDHOLDER = "institutional_landholder"
     ACADEMIC_PERCENTAGE = "academic_percentage"
+    BPL_STATUS = "bpl_status"
+    HAS_LPG_CONNECTION = "has_lpg_connection"
+    HOUSE_TYPE = "house_type"
+    OWNS_VEHICLE = "owns_vehicle"
+    TRADE = "trade"
+    SCHOOL_TYPE = "school_type"
+    CHILD_AGE = "child_age"
+    HAS_PENSION_SCHEME = "has_pension_scheme"
 
 
 class DocumentType(str, Enum):
@@ -37,6 +45,12 @@ class DocumentType(str, Enum):
     DISABILITY_CERTIFICATE = "disability_certificate"
     RATION_CARD = "ration_card"
     PHOTOGRAPH = "photograph"
+    LPG_SUBSIDY_DOCUMENT = "lpg_subsidy_document"
+    MARKSHEET = "marksheet"
+    SCHOOL_CERTIFICATE = "school_certificate"
+    ARTISAN_ID = "artisan_id"
+    JOB_CARD = "job_card"
+    HEALTH_CARD = "health_card"
 
 
 class BenefitType(str, Enum):
@@ -48,6 +62,10 @@ class BenefitType(str, Enum):
     SCHOLARSHIP = "scholarship"
     INSURANCE = "insurance"
     IN_KIND_GOODS = "in_kind_goods"
+    HEALTH_COVER = "health_cover"
+    HOUSING_SUBSIDY = "housing_subsidy"
+    TOOLKIT_INCENTIVE = "toolkit_incentive"
+    CREDIT_FACILITY = "credit_facility"
 
 
 class Operator(str, Enum):
@@ -60,3 +78,4 @@ class Operator(str, Enum):
     NE = "ne"
     IN_RANGE = "in_range"
     IN_LIST = "in_list"
+

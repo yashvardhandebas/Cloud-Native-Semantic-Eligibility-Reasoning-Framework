@@ -1,0 +1,61 @@
+{
+  "notification_id": "ignoaps-pension",
+  "scheme_name": "Indira Gandhi National Old Age Pension Scheme (IGNOAPS)",
+  "source_language": "hi",
+  "extraction_mode": "mocked_rule_mapper",
+  "conditions": [
+    {
+      "field": "age_min",
+      "operator": "gte",
+      "value": 60,
+      "unit": "years",
+      "raw_text": "आवेदक की आयु 60 वर्ष या उससे अधिक होनी चाहिए।"
+    },
+    {
+      "field": "bpl_status",
+      "operator": "eq",
+      "value": true,
+      "unit": null,
+      "raw_text": "आवेदक गरीबी रेखा से नीचे (BPL) जीवन यापन करने वाले परिवार से संबंधित होना चाहिए।"
+    }
+  ],
+  "documents": [
+    {
+      "document_type": "age_proof",
+      "required_for": "age verification",
+      "raw_text": "आयु प्रमाण पत्र (मतदाता पहचान पत्र अथवा जन्म प्रमाण पत्र)"
+    },
+    {
+      "document_type": "ration_card",
+      "required_for": "BPL status verification",
+      "raw_text": "बीपीएल राशन कार्ड"
+    },
+    {
+      "document_type": "aadhaar_card",
+      "required_for": "identity proof",
+      "raw_text": "आधार कार्ड"
+    },
+    {
+      "document_type": "bank_passbook",
+      "required_for": "monthly pension disbursement",
+      "raw_text": "बैंक पासबुक"
+    }
+  ],
+  "benefits": [
+    {
+      "benefit_type": "pension",
+      "amount": 500,
+      "frequency": "monthly",
+      "raw_text": "60 से 79 वर्ष के लाभार्थियों को ₹500 प्रति माह और 80 वर्ष से अधिक को ₹1,000 प्रति माह पेंशन।"
+    }
+  ],
+  "exclusions": [
+    {
+      "field": "has_pension_scheme",
+      "operator": "eq",
+      "value": true,
+      "unit": null,
+      "raw_text": "ऐसे व्यक्ति जिन्हें केंद्र या राज्य सरकार की किसी अन्य सामाजिक सुरक्षा पेंशन योजना का लाभ मिल रहा हो।"
+    }
+  ]
+}

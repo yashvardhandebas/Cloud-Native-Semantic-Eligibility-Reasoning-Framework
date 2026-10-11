@@ -1,0 +1,84 @@
+{
+  "notification_id": "magalir-urimai-thittam",
+  "scheme_name": "Kalaignar Magalir Urimai Thittam (KMUT)",
+  "source_language": "ta",
+  "version": 1,
+  "conditions": [
+    {
+      "field": "gender",
+      "operator": "eq",
+      "value": "female",
+      "unit": null,
+      "raw_text": "விண்ணப்பதாரர் குடும்பத் தலைவியாக இருக்க வேண்டும்."
+    },
+    {
+      "field": "age_min",
+      "operator": "gte",
+      "value": 21,
+      "unit": "years",
+      "raw_text": "21 வயது பூர்த்தியடைந்த குடும்பத் தலைவி."
+    },
+    {
+      "field": "income_threshold",
+      "operator": "lte",
+      "value": 250000,
+      "unit": "INR",
+      "raw_text": "குடும்பத்தின் ஆண்டு வருமானம் ரூ. 2,50,000-க்கு குறைவாக இருக்க வேண்டும்."
+    },
+    {
+      "field": "residence_state",
+      "operator": "eq",
+      "value": "Tamil Nadu",
+      "unit": null,
+      "raw_text": "தமிழ்நாட்டில் வசிக்கும் குடும்பங்கள்."
+    }
+  ],
+  "documents": [
+    {
+      "document_type": "ration_card",
+      "required_for": "family head verification",
+      "raw_text": "ஸ்மார்ட் குடும்ப அட்டை (Smart Ration Card)"
+    },
+    {
+      "document_type": "aadhaar_card",
+      "required_for": "identity proof",
+      "raw_text": "ஆதார் அட்டை (Aadhaar Card)"
+    },
+    {
+      "document_type": "bank_passbook",
+      "required_for": "DBT transfer",
+      "raw_text": "வங்கி கணக்கு புத்தகம்"
+    }
+  ],
+  "benefits": [
+    {
+      "benefit_type": "cash_transfer",
+      "amount": 12000,
+      "frequency": "annual",
+      "raw_text": "மாதம் ரூ. 1,000 மகளிர் உரிமைத் தொகை (ஆண்டுக்கு ரூ. 12,000)."
+    }
+  ],
+  "exclusions": [
+    {
+      "field": "income_tax_payer_status",
+      "operator": "eq",
+      "value": true,
+      "unit": null,
+      "raw_text": "வருமான வரி செலுத்துபவர்கள்."
+    },
+    {
+      "field": "government_employment_status",
+      "operator": "eq",
+      "value": true,
+      "unit": null,
+      "raw_text": "அரசு ஊழியர்கள் அல்லது ஓய்வூதியம் பெறுபவர்கள்."
+    },
+    {
+      "field": "owns_vehicle",
+      "operator": "eq",
+      "value": true,
+      "unit": null,
+      "raw_text": "சொந்தமாக நான்கு சக்கர வாகனம் (கார், ஜீப்) வைத்திருக்கும் குடும்பங்கள்."
+    }
+  ]
+}

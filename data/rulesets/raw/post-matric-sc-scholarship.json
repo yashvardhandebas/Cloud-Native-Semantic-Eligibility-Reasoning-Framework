@@ -1,0 +1,63 @@
+{
+  "notification_id": "post-matric-sc-scholarship",
+  "scheme_name": "Post-Matric Scholarship for SC Students",
+  "source_language": "en",
+  "extraction_mode": "mocked_rule_mapper",
+  "conditions": [
+    {
+      "field": "caste_category",
+      "operator": "eq",
+      "value": "SC",
+      "unit": null,
+      "raw_text": "Applicant must belong to Scheduled Caste (SC) category."
+    },
+    {
+      "field": "education_level",
+      "operator": "gte",
+      "value": "10th",
+      "unit": "grade",
+      "raw_text": "Must have completed 10th standard education."
+    },
+    {
+      "field": "income_threshold",
+      "operator": "lte",
+      "value": 250000,
+      "unit": "INR",
+      "raw_text": "Total annual family income must not exceed Rs. 2,50,000."
+    }
+  ],
+  "documents": [
+    {
+      "document_type": "caste_certificate",
+      "required_for": "caste verification",
+      "raw_text": "Caste Certificate (SC)"
+    },
+    {
+      "document_type": "income_certificate",
+      "required_for": "income ceiling verification",
+      "raw_text": "Annual Family Income Certificate"
+    },
+    {
+      "document_type": "aadhaar_card",
+      "required_for": "identity proof",
+      "raw_text": "Valid Aadhaar Card"
+    }
+  ],
+  "benefits": [
+    {
+      "benefit_type": "scholarship",
+      "amount": 12000,
+      "frequency": "annual",
+      "raw_text": "Scholarship allowance and tuition fee reimbursement up to Rs. 12,000 per year."
+    }
+  ],
+  "exclusions": [
+    {
+      "field": "income_tax_payer_status",
+      "operator": "eq",
+      "value": true,
+      "unit": null,
+      "raw_text": "Students whose families pay income tax are excluded."
+    }
+  ]
+}

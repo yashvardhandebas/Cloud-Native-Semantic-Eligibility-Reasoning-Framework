@@ -1,0 +1,70 @@
+{
+  "notification_id": "pudhumai-penn-scheme",
+  "scheme_name": "Moovalur Ramamirtham Ammaiyar Higher Education Assurance Scheme (Pudhumai Penn)",
+  "source_language": "ta",
+  "extraction_mode": "mocked_rule_mapper",
+  "conditions": [
+    {
+      "field": "gender",
+      "operator": "eq",
+      "value": "female",
+      "unit": null,
+      "raw_text": "உயர்கல்வி பயிலும் மாணவிகள் இத்திட்டத்திற்கு தகுதியானவர்கள்."
+    },
+    {
+      "field": "education_level",
+      "operator": "gte",
+      "value": "12th",
+      "unit": "grade",
+      "raw_text": "அரசுப் பள்ளிகளில் 6 முதல் 12-ஆம் வகுப்பு வரை படித்து கல்லூரிகளில் சேர்ந்த மாணவிகள்."
+    },
+    {
+      "field": "school_type",
+      "operator": "eq",
+      "value": "government",
+      "unit": null,
+      "raw_text": "அரசுப் பள்ளிகளில் 6 முதல் 12-ஆம் வகுப்பு வரை படித்த மாணவிகள்."
+    },
+    {
+      "field": "residence_state",
+      "operator": "eq",
+      "value": "Tamil Nadu",
+      "unit": null,
+      "raw_text": "தமிழ்நாட்டில் உள்ள கல்லூரிகளில் பயில்பவர்கள்."
+    }
+  ],
+  "documents": [
+    {
+      "document_type": "school_certificate",
+      "required_for": "govt school study proof",
+      "raw_text": "பள்ளி மாற்றுச் சான்றிதழ் (TC) 6-12 அரசுப் பள்ளி படிப்பு"
+    },
+    {
+      "document_type": "aadhaar_card",
+      "required_for": "identity proof",
+      "raw_text": "ஆதார் அட்டை (Aadhaar Card)"
+    },
+    {
+      "document_type": "bank_passbook",
+      "required_for": "direct transfer",
+      "raw_text": "மாணவியின் வங்கி கணக்கு பாஸ்புக்"
+    }
+  ],
+  "benefits": [
+    {
+      "benefit_type": "cash_transfer",
+      "amount": 12000,
+      "frequency": "annual",
+      "raw_text": "மாதம் ரூ. 1,000 உதவித்தொகை நேரடியாக வங்கி கணக்கில் (ஆண்டுக்கு ரூ. 12,000)."
+    }
+  ],
+  "exclusions": [
+    {
+      "field": "school_type",
+      "operator": "eq",
+      "value": "private",
+      "unit": null,
+      "raw_text": "தனியார் பள்ளிகளில் பயின்ற மாணவிகளுக்கு இத்திட்டம் பொருந்தாது."
+    }
+  ]
+}

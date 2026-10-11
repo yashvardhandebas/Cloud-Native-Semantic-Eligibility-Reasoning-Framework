@@ -1,0 +1,58 @@
+{
+  "notification_id": "atal-pension-yojana",
+  "scheme_name": "Atal Pension Yojana (APY)",
+  "source_language": "en",
+  "version": 1,
+  "conditions": [
+    {
+      "field": "age_min",
+      "operator": "gte",
+      "value": 18,
+      "unit": "years",
+      "raw_text": "Any Indian citizen aged between 18 and 40 years."
+    },
+    {
+      "field": "age_max",
+      "operator": "lte",
+      "value": 40,
+      "unit": "years",
+      "raw_text": "Maximum entry age of 40 years on the date of subscription."
+    },
+    {
+      "field": "income_tax_payer_status",
+      "operator": "eq",
+      "value": false,
+      "unit": null,
+      "raw_text": "Applicant must not be an income tax payer under Income Tax Act."
+    }
+  ],
+  "documents": [
+    {
+      "document_type": "aadhaar_card",
+      "required_for": "identity proof",
+      "raw_text": "Valid Aadhaar Card"
+    },
+    {
+      "document_type": "bank_passbook",
+      "required_for": "auto debit mandate",
+      "raw_text": "Active Savings Bank Account Passbook"
+    }
+  ],
+  "benefits": [
+    {
+      "benefit_type": "pension",
+      "amount": 5000,
+      "frequency": "monthly",
+      "raw_text": "Guaranteed minimum monthly pension of Rs. 1,000 to Rs. 5,000 per month from age 60."
+    }
+  ],
+  "exclusions": [
+    {
+      "field": "income_tax_payer_status",
+      "operator": "eq",
+      "value": true,
+      "unit": null,
+      "raw_text": "Income tax payers are strictly ineligible to join Atal Pension Yojana as of October 1, 2022."
+    }
+  ]
+}

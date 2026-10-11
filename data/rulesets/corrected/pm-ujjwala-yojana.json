@@ -1,0 +1,70 @@
+{
+  "notification_id": "pm-ujjwala-yojana",
+  "scheme_name": "Pradhan Mantri Ujjwala Yojana 2.0 (PMUY)",
+  "source_language": "hi",
+  "version": 1,
+  "conditions": [
+    {
+      "field": "gender",
+      "operator": "eq",
+      "value": "female",
+      "unit": null,
+      "raw_text": "आवेदक एक वयस्क महिला होनी चाहिए।"
+    },
+    {
+      "field": "age_min",
+      "operator": "gte",
+      "value": 18,
+      "unit": "years",
+      "raw_text": "न्यूनतम आयु 18 वर्ष या उससे अधिक होनी चाहिए।"
+    },
+    {
+      "field": "bpl_status",
+      "operator": "eq",
+      "value": true,
+      "unit": null,
+      "raw_text": "आवेदक गरीबी रेखा से नीचे (BPL) अथवा निर्धन परिवार से संबंधित होनी चाहिए।"
+    },
+    {
+      "field": "has_lpg_connection",
+      "operator": "eq",
+      "value": false,
+      "unit": null,
+      "raw_text": "परिवार में पहले से कोई सक्रिय एलपीजी गैस कनेक्शन नहीं होना चाहिए।"
+    }
+  ],
+  "documents": [
+    {
+      "document_type": "aadhaar_card",
+      "required_for": "identity and age proof",
+      "raw_text": "आधार कार्ड (पहचान व पता प्रमाण)"
+    },
+    {
+      "document_type": "ration_card",
+      "required_for": "family composition proof",
+      "raw_text": "बीपीएल राशन कार्ड अथवा 14-सूत्रीय घोषणा पत्र"
+    },
+    {
+      "document_type": "bank_passbook",
+      "required_for": "DBT subsidy",
+      "raw_text": "बैंक खाता पासबुक"
+    }
+  ],
+  "benefits": [
+    {
+      "benefit_type": "in_kind_goods",
+      "amount": 1600,
+      "frequency": "one-time",
+      "raw_text": "निःशुल्क एलपीजी गैस कनेक्शन, पहला 14.2 किलोग्राम का भरा हुआ सिलेंडर और गैस चूल्हा (हॉटप्लेट)।"
+    }
+  ],
+  "exclusions": [
+    {
+      "field": "has_lpg_connection",
+      "operator": "eq",
+      "value": true,
+      "unit": null,
+      "raw_text": "जिस परिवार के घर में पहले से कोई एलपीजी गैस कनेक्शन मौजूद है, वह अपात्र है।"
+    }
+  ]
+}

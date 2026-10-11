@@ -1,0 +1,94 @@
+{
+  "notification_id": "ap-cheyutha-thalliki-vandanam",
+  "scheme_name": "Andhra Pradesh YSR Cheyutha Social Assistance Scheme",
+  "source_language": "te",
+  "extraction_mode": "mocked_rule_mapper",
+  "conditions": [
+    {
+      "field": "gender",
+      "operator": "eq",
+      "value": "female",
+      "unit": null,
+      "raw_text": "ఆంధ్రప్రదేశ్ రాష్ట్రానికి చెందిన మహిళలు అర్హులు."
+    },
+    {
+      "field": "age_min",
+      "operator": "gte",
+      "value": 45,
+      "unit": "years",
+      "raw_text": "45 నుండి 60 సంవత్సరాల మధ్య వయస్సు గల మహిళలు."
+    },
+    {
+      "field": "age_max",
+      "operator": "lte",
+      "value": 60,
+      "unit": "years",
+      "raw_text": "గరిష్ట వయస్సు 60 సంవత్సరాలు."
+    },
+    {
+      "field": "caste_category",
+      "operator": "in_list",
+      "value": [
+        "SC",
+        "ST",
+        "BC",
+        "MINORITY"
+      ],
+      "unit": null,
+      "raw_text": "ఎస్సీ, ఎస్టీ, బీసీ మరియు మైనారిటీ మహిళలు."
+    },
+    {
+      "field": "residence_state",
+      "operator": "eq",
+      "value": "Andhra Pradesh",
+      "unit": null,
+      "raw_text": "ఆంధ్రప్రదేశ్ రాష్ట్ర నివాసితులు."
+    }
+  ],
+  "documents": [
+    {
+      "document_type": "caste_certificate",
+      "required_for": "caste confirmation",
+      "raw_text": "కుల ధృవీకరణ పత్రం (Caste Certificate)"
+    },
+    {
+      "document_type": "age_proof",
+      "required_for": "age verification",
+      "raw_text": "వయస్సు ధృవీకరణ పత్రం (Age Proof)"
+    },
+    {
+      "document_type": "aadhaar_card",
+      "required_for": "identity proof",
+      "raw_text": "ఆధార్ కార్డు"
+    },
+    {
+      "document_type": "bank_passbook",
+      "required_for": "financial assistance transfer",
+      "raw_text": "బ్యాంక్ పాస్ బుక్"
+    }
+  ],
+  "benefits": [
+    {
+      "benefit_type": "cash_transfer",
+      "amount": 18750,
+      "frequency": "annual",
+      "raw_text": "నాలుగు సంవత్సరాలలో మొత్తం రూ. 75,000 (ఏడాదికి రూ. 18,750 చొప్పున)."
+    }
+  ],
+  "exclusions": [
+    {
+      "field": "government_employment_status",
+      "operator": "eq",
+      "value": true,
+      "unit": null,
+      "raw_text": "కుటుంబంలో ఎవరైనా ప్రభుత్వ ఉద్యోగి ఉన్నా అనర్హులు."
+    },
+    {
+      "field": "owns_vehicle",
+      "operator": "eq",
+      "value": true,
+      "unit": null,
+      "raw_text": "నాలుగు చక్రాల వాహనం ఉన్న కుటుంబాలు అనర్హులు."
+    }
+  ]
+}

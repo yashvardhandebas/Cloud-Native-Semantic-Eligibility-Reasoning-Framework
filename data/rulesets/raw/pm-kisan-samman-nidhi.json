@@ -1,0 +1,70 @@
+{
+  "notification_id": "pm-kisan-samman-nidhi",
+  "scheme_name": "Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)",
+  "source_language": "en",
+  "extraction_mode": "mocked_rule_mapper",
+  "conditions": [
+    {
+      "field": "occupation",
+      "operator": "eq",
+      "value": "farmer",
+      "unit": null,
+      "raw_text": "All landholding farmer families holding cultivable land in their names."
+    },
+    {
+      "field": "land_ownership",
+      "operator": "lte",
+      "value": 2.0,
+      "unit": "hectares",
+      "raw_text": "Small and marginal farmers holding land up to 2 hectares."
+    }
+  ],
+  "documents": [
+    {
+      "document_type": "land_record",
+      "required_for": "cultivable land ownership",
+      "raw_text": "Land ownership passbook/record (Patta/Khasra/Khatauni)"
+    },
+    {
+      "document_type": "aadhaar_card",
+      "required_for": "identity proof",
+      "raw_text": "Valid Aadhaar Card"
+    },
+    {
+      "document_type": "bank_passbook",
+      "required_for": "direct benefit transfer",
+      "raw_text": "Bank account passbook linked with Aadhaar"
+    }
+  ],
+  "benefits": [
+    {
+      "benefit_type": "cash_transfer",
+      "amount": 6000,
+      "frequency": "annual",
+      "raw_text": "Direct income support of Rs. 6,000 per year in three installments of Rs. 2,000."
+    }
+  ],
+  "exclusions": [
+    {
+      "field": "institutional_landholder",
+      "operator": "eq",
+      "value": true,
+      "unit": null,
+      "raw_text": "All institutional landholders."
+    },
+    {
+      "field": "constitutional_post_holder",
+      "operator": "eq",
+      "value": true,
+      "unit": null,
+      "raw_text": "Former and present holders of constitutional posts."
+    },
+    {
+      "field": "income_tax_payer_status",
+      "operator": "eq",
+      "value": true,
+      "unit": null,
+      "raw_text": "All persons who paid Income Tax in the last assessment year."
+    }
+  ]
+}

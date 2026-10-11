@@ -1,0 +1,94 @@
+{
+  "notification_id": "pmay-g-housing",
+  "scheme_name": "Pradhan Mantri Awaas Yojana - Gramin (PMAY-G)",
+  "source_language": "en",
+  "extraction_mode": "mocked_rule_mapper",
+  "conditions": [
+    {
+      "field": "house_type",
+      "operator": "in_list",
+      "value": [
+        "kutcha",
+        "dilapidated",
+        "houseless"
+      ],
+      "unit": null,
+      "raw_text": "Living in houseless condition or in zero, one or two-room kutcha houses."
+    },
+    {
+      "field": "owns_vehicle",
+      "operator": "eq",
+      "value": false,
+      "unit": null,
+      "raw_text": "Households not owning motorized two, three, or four-wheelers."
+    }
+  ],
+  "documents": [
+    {
+      "document_type": "aadhaar_card",
+      "required_for": "identity proof",
+      "raw_text": "Valid Aadhaar Card"
+    },
+    {
+      "document_type": "job_card",
+      "required_for": "MGNREGA labor linkage",
+      "raw_text": "MGNREGA Job Card Number"
+    },
+    {
+      "document_type": "bank_passbook",
+      "required_for": "DBT grant disbursement",
+      "raw_text": "Bank Account Passbook"
+    }
+  ],
+  "benefits": [
+    {
+      "benefit_type": "housing_subsidy",
+      "amount": 120000,
+      "frequency": "one-time",
+      "raw_text": "Financial grant assistance of Rs. 1,20,000 per unit (Rs. 1,30,000 in hilly areas)."
+    },
+    {
+      "benefit_type": "subsidy",
+      "amount": 12000,
+      "frequency": "one-time",
+      "raw_text": "Additional assistance of Rs. 12,000 for toilet construction under Swachh Bharat Mission."
+    }
+  ],
+  "exclusions": [
+    {
+      "field": "house_type",
+      "operator": "eq",
+      "value": "pucca",
+      "unit": null,
+      "raw_text": "Households already owning a pucca house."
+    },
+    {
+      "field": "owns_vehicle",
+      "operator": "eq",
+      "value": true,
+      "unit": null,
+      "raw_text": "Households owning motorized two, three, or four-wheelers."
+    },
+    {
+      "field": "government_employment_status",
+      "operator": "eq",
+      "value": true,
+      "unit": null,
+      "raw_text": "Households having any regular government or PSU employee."
+    },
+    {
+      "field": "income_tax_payer_status",
+      "operator": "eq",
+      "value": true,
+      "unit": null,
+      "raw_text": "Households where any member pays income tax."
+    },
+    {
+      "field": "income_threshold",
+      "operator": "gt",
+      "value": 180000,
+      "unit": "INR",
+      "raw_text": "Households with any member earning more than Rs. 15,000 per month (Rs. 1,80,000/year)."
+    }
+  ]
+}

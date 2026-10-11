@@ -1,0 +1,95 @@
+{
+  "notification_id": "pm-vishwakarma-scheme",
+  "scheme_name": "Pradhan Mantri Vishwakarma Scheme",
+  "source_language": "en",
+  "version": 1,
+  "conditions": [
+    {
+      "field": "occupation",
+      "operator": "eq",
+      "value": "artisan",
+      "unit": null,
+      "raw_text": "Traditional artisan or craftsperson working with hands and tools."
+    },
+    {
+      "field": "age_min",
+      "operator": "gte",
+      "value": 18,
+      "unit": "years",
+      "raw_text": "Minimum age of 18 years on date of registration."
+    },
+    {
+      "field": "trade",
+      "operator": "in_list",
+      "value": [
+        "carpenter",
+        "blacksmith",
+        "potter",
+        "sculptor",
+        "cobbler",
+        "tailor",
+        "mason",
+        "boat_builder",
+        "barber",
+        "basket_maker",
+        "locksmith",
+        "goldsmith",
+        "hammer_maker",
+        "doll_maker",
+        "garland_maker",
+        "washerman",
+        "weaver",
+        "traditional_artisan"
+      ],
+      "unit": null,
+      "raw_text": "Engaged in one of 18 recognized traditional trades on a self-employment basis."
+    }
+  ],
+  "documents": [
+    {
+      "document_type": "artisan_id",
+      "required_for": "trade declaration",
+      "raw_text": "Artisan Self-Declaration / Trade verification"
+    },
+    {
+      "document_type": "aadhaar_card",
+      "required_for": "biometric e-KYC",
+      "raw_text": "Valid Aadhaar Card"
+    },
+    {
+      "document_type": "bank_passbook",
+      "required_for": "credit and stipend disbursement",
+      "raw_text": "Active Bank Account Passbook"
+    }
+  ],
+  "benefits": [
+    {
+      "benefit_type": "toolkit_incentive",
+      "amount": 15000,
+      "frequency": "one-time",
+      "raw_text": "Toolkit incentive grant of Rs. 15,000 via e-RUPI."
+    },
+    {
+      "benefit_type": "credit_facility",
+      "amount": 300000,
+      "frequency": "tranche",
+      "raw_text": "Collateral-free enterprise credit up to Rs. 3,00,000 at concessional 5% interest."
+    }
+  ],
+  "exclusions": [
+    {
+      "field": "government_employment_status",
+      "operator": "eq",
+      "value": true,
+      "unit": null,
+      "raw_text": "Regular government employees and their family members are excluded."
+    },
+    {
+      "field": "existing_scheme_beneficiary",
+      "operator": "eq",
+      "value": "defaulted_mudra_pmegp",
+      "unit": null,
+      "raw_text": "Active defaulters of credit-based self employment schemes (PMEGP, MUDRA)."
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "notification_id": "nmmss-scholarship",
+  "scheme_name": "National Means-cum-Merit Scholarship Scheme (NMMSS)",
+  "source_language": "en",
+  "extraction_mode": "mocked_rule_mapper",
+  "conditions": [
+    {
+      "field": "education_level",
+      "operator": "eq",
+      "value": "8th",
+      "unit": "grade",
+      "raw_text": "Regular students studying in Class VIII in government or aided schools."
+    },
+    {
+      "field": "academic_percentage",
+      "operator": "gte",
+      "value": 55,
+      "unit": "percentage",
+      "raw_text": "At least 55% marks in Class VII examination (50% for SC/ST)."
+    },
+    {
+      "field": "income_threshold",
+      "operator": "lte",
+      "value": 350000,
+      "unit": "INR",
+      "raw_text": "Parental income from all sources must not exceed Rs. 3,50,000 per annum."
+    }
+  ],
+  "documents": [
+    {
+      "document_type": "marksheet",
+      "required_for": "academic merit proof",
+      "raw_text": "Class VII Marksheet / Report Card"
+    },
+    {
+      "document_type": "income_certificate",
+      "required_for": "income ceiling proof",
+      "raw_text": "Income Certificate issued by Revenue Authority"
+    },
+    {
+      "document_type": "aadhaar_card",
+      "required_for": "identity proof",
+      "raw_text": "Valid Aadhaar Card"
+    }
+  ],
+  "benefits": [
+    {
+      "benefit_type": "scholarship",
+      "amount": 12000,
+      "frequency": "annual",
+      "raw_text": "Scholarship of Rs. 12,000 per annum (Rs. 1,000 per month) for classes IX to XII."
+    }
+  ],
+  "exclusions": [
+    {
+      "field": "school_type",
+      "operator": "in_list",
+      "value": [
+        "private",
+        "kvs",
+        "jnv",
+        "residential"
+      ],
+      "unit": null,
+      "raw_text": "Students studying in KVS, JNV, Sainik Schools, or private schools are not eligible."
+    }
+  ]
+}

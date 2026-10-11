@@ -1,0 +1,56 @@
+{
+  "notification_id": "sukanya-samriddhi-yojana",
+  "scheme_name": "Sukanya Samriddhi Yojana (SSY)",
+  "source_language": "en",
+  "version": 1,
+  "conditions": [
+    {
+      "field": "gender",
+      "operator": "eq",
+      "value": "female",
+      "unit": null,
+      "raw_text": "Opened in the name of an Indian girl child."
+    },
+    {
+      "field": "child_age",
+      "operator": "lte",
+      "value": 10,
+      "unit": "years",
+      "raw_text": "From birth until attaining the age of 10 years."
+    }
+  ],
+  "documents": [
+    {
+      "document_type": "age_proof",
+      "required_for": "birth verification",
+      "raw_text": "Birth Certificate of the girl child"
+    },
+    {
+      "document_type": "aadhaar_card",
+      "required_for": "guardian identity",
+      "raw_text": "Aadhaar Card of parent or legal guardian"
+    },
+    {
+      "document_type": "photograph",
+      "required_for": "account opening",
+      "raw_text": "Passport-size photographs"
+    }
+  ],
+  "benefits": [
+    {
+      "benefit_type": "subsidy",
+      "amount": 8.2,
+      "frequency": "annual",
+      "raw_text": "8.2% annual sovereign interest with complete Section 80C and 10(10D) tax exemptions."
+    }
+  ],
+  "exclusions": [
+    {
+      "field": "existing_scheme_beneficiary",
+      "operator": "eq",
+      "value": "exceeded_max_accounts",
+      "unit": null,
+      "raw_text": "More than two accounts in one family without twin/triplet documentation."
+    }
+  ]
+}

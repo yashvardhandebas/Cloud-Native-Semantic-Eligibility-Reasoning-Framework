@@ -1,0 +1,160 @@
+{
+  "schemes": [
+    {
+      "id": "post-matric-sc-scholarship",
+      "name": "Post-Matric Scholarship for SC Students",
+      "short_name": "Post-Matric SC Scholarship",
+      "category": "Education",
+      "source_language": "en",
+      "source_url": "https://scholarships.gov.in",
+      "verified_on": "2024-09-15",
+      "key_benefit": "₹12,000 / year allowance + full tuition reimbursement",
+      "description": "Financial assistance for Scheduled Caste students pursuing post-secondary education with family income up to ₹2.5 Lakh.",
+      "status": "active"
+    },
+    {
+      "id": "pm-kisan-samman-nidhi",
+      "name": "Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)",
+      "short_name": "PM-KISAN",
+      "category": "Agriculture",
+      "source_language": "en",
+      "source_url": "https://pmkisan.gov.in",
+      "verified_on": "2024-10-05",
+      "key_benefit": "₹6,000 / year (3 installments of ₹2,000 via DBT)",
+      "description": "Direct income support to landholding farmer families across India holding cultivable land.",
+      "status": "active"
+    },
+    {
+      "id": "magalir-urimai-thittam",
+      "name": "Kalaignar Magalir Urimai Thittam (KMUT)",
+      "short_name": "KMUT Women Rights Grant",
+      "category": "Women & Child",
+      "source_language": "ta",
+      "source_url": "https://kmut.tn.gov.in",
+      "verified_on": "2024-09-01",
+      "key_benefit": "₹1,000 / month direct bank transfer",
+      "description": "Monthly rights grant for eligible women heads of households in Tamil Nadu.",
+      "status": "active"
+    },
+    {
+      "id": "pm-jay-ayushman-bharat",
+      "name": "Ayushman Bharat Pradhan Mantri Jan Arogya Yojana (AB-PMJAY)",
+      "short_name": "PM-JAY Health Cover",
+      "category": "Health",
+      "source_language": "en",
+      "source_url": "https://pmjay.gov.in",
+      "verified_on": "2024-10-29",
+      "key_benefit": "₹5,00,000 cashless cover / family / year (+ universal 70+ senior top-up)",
+      "description": "Cashless health insurance coverage up to ₹5 lakh per family per year for secondary and tertiary hospitalization, including expanded universal top-up for all citizens aged 70+.",
+      "status": "active"
+    },
+    {
+      "id": "pm-ujjwala-yojana",
+      "name": "Pradhan Mantri Ujjwala Yojana 2.0 (PMUY)",
+      "short_name": "PM Ujjwala LPG",
+      "category": "Women & Child",
+      "source_language": "hi",
+      "source_url": "https://www.pmuy.gov.in",
+      "verified_on": "2024-08-01",
+      "key_benefit": "Free LPG connection + 1st refill (14.2kg) + gas stove",
+      "description": "Deposit-free LPG cylinder connection along with free first refill and hotplate to adult women from BPL/poor households without an existing LPG connection.",
+      "status": "active"
+    },
+    {
+      "id": "pmay-g-housing",
+      "name": "Pradhan Mantri Awaas Yojana - Gramin (PMAY-G)",
+      "short_name": "PMAY-G Rural Housing",
+      "category": "Housing",
+      "source_language": "en",
+      "source_url": "https://pmayg.nic.in",
+      "verified_on": "2024-08-09",
+      "key_benefit": "₹1,20,000 financial grant + ₹12,000 SBM toilet assistance",
+      "description": "Financial assistance for construction of pucca house to rural houseless families or households living in kutcha/dilapidated houses, with strict exclusion criteria.",
+      "status": "active"
+    },
+    {
+      "id": "ignoaps-pension",
+      "name": "Indira Gandhi National Old Age Pension Scheme (IGNOAPS)",
+      "short_name": "IGNOAPS Old Age Pension",
+      "category": "Pension",
+      "source_language": "hi",
+      "source_url": "https://nsap.nic.in",
+      "verified_on": "2024-07-20",
+      "key_benefit": "₹500 / month (age 60-79) / ₹1,000 / month (age 80+)",
+      "description": "Monthly central social assistance pension to senior citizens aged 60+ belonging to Below Poverty Line (BPL) households.",
+      "status": "active"
+    },
+    {
+      "id": "atal-pension-yojana",
+      "name": "Atal Pension Yojana (APY)",
+      "short_name": "Atal Pension Yojana",
+      "category": "Pension",
+      "source_language": "en",
+      "source_url": "https://www.jansuraksha.gov.in",
+      "verified_on": "2024-09-10",
+      "key_benefit": "Guaranteed ₹1,000 to ₹5,000 / month pension from age 60",
+      "description": "Government-backed contributory pension scheme for unorganized sector workers aged 18-40; strictly excludes income tax payers since October 1, 2022.",
+      "status": "active"
+    },
+    {
+      "id": "sukanya-samriddhi-yojana",
+      "name": "Sukanya Samriddhi Yojana (SSY)",
+      "short_name": "Sukanya Samriddhi Account",
+      "category": "Women & Child",
+      "source_language": "en",
+      "source_url": "https://www.nsiindia.gov.in",
+      "verified_on": "2024-10-01",
+      "key_benefit": "8.2% p.a. sovereign guaranteed interest + tax exemption (Section 80C)",
+      "description": "Small deposit savings scheme for girl children below 10 years of age, operated by parents/legal guardians with maximum 2 accounts per family.",
+      "status": "active"
+    },
+    {
+      "id": "nmmss-scholarship",
+      "name": "National Means-cum-Merit Scholarship Scheme (NMMSS)",
+      "short_name": "NMMSS Merit Scholarship",
+      "category": "Education",
+      "source_language": "en",
+      "source_url": "https://dsel.education.gov.in",
+      "verified_on": "2024-08-15",
+      "key_benefit": "₹12,000 / year (₹1,000 / month from Class IX to XII)",
+      "description": "Merit scholarships for meritorious students of economically weaker sections (income <= ₹3.5L, Class VII marks >= 55%) studying in government/aided schools.",
+      "status": "active"
+    },
+    {
+      "id": "pudhumai-penn-scheme",
+      "name": "Moovalur Ramamirtham Ammaiyar Higher Education Assurance Scheme (Pudhumai Penn)",
+      "short_name": "Pudhumai Penn Higher Ed",
+      "category": "Education",
+      "source_language": "ta",
+      "source_url": "https://penkalvi.tn.gov.in",
+      "verified_on": "2024-09-01",
+      "key_benefit": "₹1,000 / month DBT until completion of degree/diploma",
+      "description": "Financial assistance for girl students who studied classes 6 to 12 continuously in Tamil Nadu government schools enrolling in recognized higher education courses.",
+      "status": "active"
+    },
+    {
+      "id": "ap-cheyutha-thalliki-vandanam",
+      "name": "Andhra Pradesh YSR Cheyutha Social Assistance Scheme",
+      "short_name": "AP YSR Cheyutha",
+      "category": "Women & Child",
+      "source_language": "te",
+      "source_url": "https://navasakam.ap.gov.in",
+      "verified_on": "2024-06-30",
+      "key_benefit": "₹18,750 / year (total ₹75,000 over 4 years) DBT",
+      "description": "Financial empowerment assistance for SC, ST, BC, and Minority women aged 45 to 60 in Andhra Pradesh with exclusions for government employees and 4-wheeler vehicle owners.",
+      "status": "active"
+    },
+    {
+      "id": "pm-vishwakarma-scheme",
+      "name": "Pradhan Mantri Vishwakarma Scheme",
+      "short_name": "PM Vishwakarma Artisan",
+      "category": "Livelihood",
+      "source_language": "en",
+      "source_url": "https://pmvishwakarma.gov.in",
+      "verified_on": "2024-09-17",
+      "key_benefit": "₹15,000 toolkit grant + ₹3,00,000 collateral-free enterprise loan @ 5%",
+      "description": "End-to-end support for traditional artisans and craftspersons across 18 trades, providing PM Vishwakarma certification, skill stipend, toolkit incentive, and subsidized loans.",
+      "status": "active"
+    }
+  ]
+}
