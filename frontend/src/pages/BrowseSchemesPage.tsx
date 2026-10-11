@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Search, Filter, Grid, List, ArrowRight, CheckSquare, Square, X, ExternalLink, Sparkles, ChevronLeft, ChevronRight, ShieldAlert, Award } from 'lucide-react';
+import { Search, Filter, Grid, List, ArrowRight, CheckSquare, Square, X, ExternalLink, Sparkles, ChevronLeft, ChevronRight, ShieldAlert, Award, Eye } from 'lucide-react';
 import { GlowCard } from '../components/GlowCard';
 import { Badge } from '../components/Badge';
+import { SchemeQuickViewModal } from '../components/SchemeQuickViewModal';
 import { MOCK_SCHEMES } from '../api/mockData';
 import { Scheme } from '../types';
 
@@ -17,6 +18,7 @@ export const BrowseSchemesPage: React.FC = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [compareList, setCompareList] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [quickViewScheme, setQuickViewScheme] = useState<Scheme | null>(null);
   const itemsPerPage = 6;
 
   const categories = ['ALL', 'Education', 'Agriculture', 'Health', 'Housing', 'Pension', 'Women & Child', 'Livelihood'];
@@ -281,6 +283,13 @@ export const BrowseSchemesPage: React.FC = () => {
                       Check Eligibility
                     </button>
                     <button
+                      onClick={(e) => { e.stopPropagation(); setQuickViewScheme(scheme); }}
+                      className="px-2.5 py-2 bg-brand-cyan/10 border border-brand-cyan/20 hover:bg-brand-cyan/20 text-brand-cyan rounded-xl text-xs font-medium transition flex items-center gap-1"
+                      title="Quick Preview"
+                    >
+                      <Eye className="w-3.5 h-3.5" />
+                    </button>
+                    <button
                       onClick={(e) => { e.stopPropagation(); navigate(`/schemes/${scheme.id}`); }}
                       className="px-3 py-2 bg-white/5 border border-white/10 hover:bg-white/10 text-white rounded-xl text-xs font-medium transition"
                     >
@@ -315,12 +324,19 @@ export const BrowseSchemesPage: React.FC = () => {
                   <p className="text-xs text-dark-muted line-clamp-1">{scheme.summary}</p>
                 </div>
 
-                <div className="flex items-center gap-3 shrink-0">
+                <div className="flex items-center gap-2 shrink-0">
                   <button
                     onClick={(e) => { e.stopPropagation(); navigate(`/check/${scheme.id}`); }}
-                    className="bg-brand-gradient text-dark-bg font-bold text-xs px-4 py-2 rounded-xl text-center shadow-md"
+                    className="bg-brand-gradient text-dark-bg font-bold text-xs px-3.5 py-2 rounded-xl text-center shadow-md"
                   >
                     Check
+                  </button>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); setQuickViewScheme(scheme); }}
+                    className="p-2 bg-brand-cyan/10 border border-brand-cyan/20 text-brand-cyan hover:bg-brand-cyan/20 rounded-xl text-xs transition"
+                    title="Quick Preview"
+                  >
+                    <Eye className="w-3.5 h-3.5" />
                   </button>
                   <button
                     onClick={(e) => { e.stopPropagation(); navigate(`/schemes/${scheme.id}`); }}
@@ -376,6 +392,12 @@ export const BrowseSchemesPage: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* Quick View Modal */}
+      <SchemeQuickViewModal
+        scheme={quickViewScheme}
+        onClose={() => setQuickViewScheme(null)}
+      />
     </div>
   );
 };

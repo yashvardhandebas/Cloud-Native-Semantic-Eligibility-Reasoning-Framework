@@ -23,6 +23,7 @@ import { evaluateEligibility } from '../api/client';
 import { CitizenFacts, EvaluationOutcome } from '../types';
 import { RadialGauge } from '../components/RadialGauge';
 import { Badge } from '../components/Badge';
+import { CitizenCertificateModal } from '../components/CitizenCertificateModal';
 
 export const EligibilityCheckPage: React.FC = () => {
   const { schemeId } = useParams<{ schemeId?: string }>();
@@ -39,6 +40,7 @@ export const EligibilityCheckPage: React.FC = () => {
 
   const [evaluating, setEvaluating] = useState<boolean>(false);
   const [result, setResult] = useState<EvaluationOutcome | null>(null);
+  const [isCertificateOpen, setIsCertificateOpen] = useState<boolean>(false);
 
   // Sync facts when scheme changes or when loading presets
   useEffect(() => {
@@ -496,19 +498,30 @@ export const EligibilityCheckPage: React.FC = () => {
             </button>
             <div className="flex items-center gap-3">
               <button
-                onClick={() => navigate('/browse')}
+                onClick={() => navigate('/schemes')}
                 className="bg-white/5 border border-white/10 text-white text-xs px-4 py-2 rounded-xl hover:bg-white/10 transition"
               >
                 Browse Other Schemes
               </button>
               <button
-                onClick={() => window.print()}
-                className="bg-brand-gradient text-dark-bg font-bold text-xs px-4 py-2 rounded-xl shadow-md flex items-center gap-1.5"
+                onClick={() => setIsCertificateOpen(true)}
+                className="bg-brand-gradient text-dark-bg font-bold text-xs px-4 py-2 rounded-xl shadow-md flex items-center gap-1.5 hover:opacity-95 transition"
               >
-                <Printer className="w-3.5 h-3.5" /> Print Decision Certificate
+                <Printer className="w-3.5 h-3.5" /> Official Certificate & Print
               </button>
             </div>
           </div>
+
+          {/* Citizen Certificate Modal */}
+          {result && (
+            <CitizenCertificateModal
+              isOpen={isCertificateOpen}
+              onClose={() => setIsCertificateOpen(false)}
+              outcome={result}
+              scheme={activeScheme}
+              citizenFacts={facts}
+            />
+          )}
         </div>
       )}
     </div>
