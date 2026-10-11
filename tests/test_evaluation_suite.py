@@ -22,10 +22,10 @@ def test_multilingual_extraction_benchmark():
     assert metrics["average_recall"] >= 0.70
 
 
-def test_verdict_accuracy_across_12_hand_derived_profiles():
+def test_verdict_accuracy_across_hand_derived_profiles():
     metrics = evaluate_hand_derived_verdict_accuracy()
-    assert metrics["total_profiles"] == 12
-    assert metrics["verdict_accuracy"] == 1.0  # All 12 hand-derived profiles pass
+    assert metrics["total_profiles"] == 39
+    assert metrics["verdict_accuracy"] == 1.0  # All 39 hand-derived profiles pass across 13 schemes
 
 
 def test_incremental_update_timing_benchmark():

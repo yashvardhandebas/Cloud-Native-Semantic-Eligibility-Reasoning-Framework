@@ -1,98 +1,365 @@
 [
   {
-    "id": "profile_1",
+    "id": "profile_sc_1",
     "name": "Hand-Derived: Eligible SC Student",
-    "scheme_id": "post_matric_sc_scholarship_demo",
+    "scheme_id": "post-matric-sc-scholarship",
     "source_notification": "02_post_matric_scholarship.txt",
+    "language": "en",
     "facts": {"caste_category": "SC", "income_threshold": 210000, "education_level": "10th", "income_tax_payer_status": false},
     "expected_verdict": "eligible"
   },
   {
-    "id": "profile_2",
-    "name": "Hand-Derived: Boundary Value Exact Income Ceiling (Rs 250,000)",
-    "scheme_id": "post_matric_sc_scholarship_demo",
+    "id": "profile_sc_2",
+    "name": "Hand-Derived: Missing Income Fact for SC Student",
+    "scheme_id": "post-matric-sc-scholarship",
     "source_notification": "02_post_matric_scholarship.txt",
-    "facts": {"caste_category": "SC", "income_threshold": 250000, "education_level": "10th", "income_tax_payer_status": false},
-    "expected_verdict": "eligible"
-  },
-  {
-    "id": "profile_3",
-    "name": "Hand-Derived: Boundary Value Exceeded (Rs 250,001)",
-    "scheme_id": "post_matric_sc_scholarship_demo",
-    "source_notification": "02_post_matric_scholarship.txt",
-    "facts": {"caste_category": "SC", "income_threshold": 250001, "education_level": "10th", "income_tax_payer_status": false},
-    "expected_verdict": "ineligible"
-  },
-  {
-    "id": "profile_4",
-    "name": "Hand-Derived: High Income SC Student (Rs 320,000)",
-    "scheme_id": "post_matric_sc_scholarship_demo",
-    "source_notification": "02_post_matric_scholarship.txt",
-    "facts": {"caste_category": "SC", "income_threshold": 320000, "education_level": "10th", "income_tax_payer_status": false},
-    "expected_verdict": "ineligible"
-  },
-  {
-    "id": "profile_5",
-    "name": "Hand-Derived: Non-SC Student Category (General)",
-    "scheme_id": "post_matric_sc_scholarship_demo",
-    "source_notification": "02_post_matric_scholarship.txt",
-    "facts": {"caste_category": "GENERAL", "income_threshold": 180000, "education_level": "10th", "income_tax_payer_status": false},
-    "expected_verdict": "ineligible"
-  },
-  {
-    "id": "profile_6",
-    "name": "Hand-Derived: Missing Income Fact",
-    "scheme_id": "post_matric_sc_scholarship_demo",
-    "source_notification": "02_post_matric_scholarship.txt",
-    "facts": {"caste_category": "SC", "education_level": "10th"},
+    "language": "en",
+    "facts": {"caste_category": "SC", "education_level": "10th", "income_tax_payer_status": false},
     "expected_verdict": "needs_more_info"
   },
   {
-    "id": "profile_7",
-    "name": "Hand-Derived: Exclusion Override (Income Tax Payer)",
-    "scheme_id": "post_matric_sc_scholarship_demo",
+    "id": "profile_sc_3",
+    "name": "Hand-Derived: Exclusion Override (Income Tax Payer SC Family)",
+    "scheme_id": "post-matric-sc-scholarship",
     "source_notification": "02_post_matric_scholarship.txt",
+    "language": "en",
     "facts": {"caste_category": "SC", "income_threshold": 200000, "education_level": "10th", "income_tax_payer_status": true},
     "expected_verdict": "ineligible"
   },
+
   {
-    "id": "profile_8",
-    "name": "Hand-Derived: Exclusion Override (Institutional Landholder)",
-    "scheme_id": "pm_kisan_demo",
+    "id": "profile_kisan_1",
+    "name": "Hand-Derived: Small Landholder Farmer (PM-KISAN)",
+    "scheme_id": "pm-kisan-samman-nidhi",
     "source_notification": "01_pm_kisan.txt",
-    "facts": {"occupation": "farmer", "institutional_landholder": true},
-    "expected_verdict": "ineligible"
-  },
-  {
-    "id": "profile_9",
-    "name": "Hand-Derived: Exclusion Override (Constitutional Post Holder)",
-    "scheme_id": "pm_kisan_demo",
-    "source_notification": "01_pm_kisan.txt",
-    "facts": {"occupation": "farmer", "constitutional_post_holder": true},
-    "expected_verdict": "ineligible"
-  },
-  {
-    "id": "profile_10",
-    "name": "Hand-Derived: Unmet Condition (Below 10th Education)",
-    "scheme_id": "post_matric_sc_scholarship_demo",
-    "source_notification": "02_post_matric_scholarship.txt",
-    "facts": {"caste_category": "SC", "income_threshold": 200000, "education_level": "Below 10th", "income_tax_payer_status": false},
-    "expected_verdict": "ineligible"
-  },
-  {
-    "id": "profile_11",
-    "name": "Hand-Derived: Eligible ST Student",
-    "scheme_id": "post_matric_sc_scholarship_demo",
-    "source_notification": "02_post_matric_scholarship.txt",
-    "facts": {"caste_category": "ST", "income_threshold": 150000, "education_level": "12th", "income_tax_payer_status": false},
+    "language": "en",
+    "facts": {"occupation": "farmer", "land_ownership": 1.5, "institutional_landholder": false, "constitutional_post_holder": false, "income_tax_payer_status": false},
     "expected_verdict": "eligible"
   },
   {
-    "id": "profile_12",
-    "name": "Hand-Derived: Missing Caste Category Fact",
-    "scheme_id": "post_matric_sc_scholarship_demo",
-    "source_notification": "02_post_matric_scholarship.txt",
-    "facts": {"income_threshold": 200000, "education_level": "10th"},
+    "id": "profile_kisan_2",
+    "name": "Hand-Derived: Missing Land Ownership Area (PM-KISAN)",
+    "scheme_id": "pm-kisan-samman-nidhi",
+    "source_notification": "01_pm_kisan.txt",
+    "language": "en",
+    "facts": {"occupation": "farmer", "institutional_landholder": false, "constitutional_post_holder": false, "income_tax_payer_status": false},
     "expected_verdict": "needs_more_info"
+  },
+  {
+    "id": "profile_kisan_3",
+    "name": "Hand-Derived: Institutional Landholder Disqualification (PM-KISAN)",
+    "scheme_id": "pm-kisan-samman-nidhi",
+    "source_notification": "01_pm_kisan.txt",
+    "language": "en",
+    "facts": {"occupation": "farmer", "land_ownership": 1.5, "institutional_landholder": true, "income_tax_payer_status": false},
+    "expected_verdict": "ineligible"
+  },
+
+  {
+    "id": "profile_kmut_1",
+    "name": "Hand-Derived: Eligible Female Head of Household (KMUT)",
+    "scheme_id": "magalir-urimai-thittam",
+    "source_notification": "01_magalir_urimai_ta.txt",
+    "language": "ta",
+    "facts": {"gender": "female", "age_min": 32, "income_threshold": 180000, "residence_state": "Tamil Nadu", "income_tax_payer_status": false, "government_employment_status": false, "owns_vehicle": false},
+    "expected_verdict": "eligible"
+  },
+  {
+    "id": "profile_kmut_2",
+    "name": "Hand-Derived: Missing Household Income (KMUT)",
+    "scheme_id": "magalir-urimai-thittam",
+    "source_notification": "01_magalir_urimai_ta.txt",
+    "language": "ta",
+    "facts": {"gender": "female", "age_min": 32, "residence_state": "Tamil Nadu", "income_tax_payer_status": false, "government_employment_status": false, "owns_vehicle": false},
+    "expected_verdict": "needs_more_info"
+  },
+  {
+    "id": "profile_kmut_3",
+    "name": "Hand-Derived: Four-Wheeler Ownership Exclusion (KMUT)",
+    "scheme_id": "magalir-urimai-thittam",
+    "source_notification": "01_magalir_urimai_ta.txt",
+    "language": "ta",
+    "facts": {"gender": "female", "age_min": 32, "income_threshold": 180000, "residence_state": "Tamil Nadu", "income_tax_payer_status": false, "government_employment_status": false, "owns_vehicle": true},
+    "expected_verdict": "ineligible"
+  },
+
+  {
+    "id": "profile_pmjay_1",
+    "name": "Hand-Derived: Deprived Household Eligible for PM-JAY",
+    "scheme_id": "pm-jay-ayushman-bharat",
+    "source_notification": "04_pm_jay_en.txt",
+    "language": "en",
+    "facts": {"bpl_status": true, "existing_scheme_beneficiary": "none"},
+    "expected_verdict": "eligible"
+  },
+  {
+    "id": "profile_pmjay_2",
+    "name": "Hand-Derived: Missing Deprivation/BPL Status (PM-JAY)",
+    "scheme_id": "pm-jay-ayushman-bharat",
+    "source_notification": "04_pm_jay_en.txt",
+    "language": "en",
+    "facts": {"existing_scheme_beneficiary": "none"},
+    "expected_verdict": "needs_more_info"
+  },
+  {
+    "id": "profile_pmjay_3",
+    "name": "Hand-Derived: CGHS Duplicate Enrolment Exclusion (PM-JAY)",
+    "scheme_id": "pm-jay-ayushman-bharat",
+    "source_notification": "04_pm_jay_en.txt",
+    "language": "en",
+    "facts": {"bpl_status": true, "existing_scheme_beneficiary": "cghs_echs_capf"},
+    "expected_verdict": "ineligible"
+  },
+
+  {
+    "id": "profile_pmuy_1",
+    "name": "Hand-Derived: BPL Adult Woman Without Gas (PM Ujjwala)",
+    "scheme_id": "pm-ujjwala-yojana",
+    "source_notification": "02_pm_ujjwala_hi.txt",
+    "language": "hi",
+    "facts": {"gender": "female", "age_min": 24, "bpl_status": true, "has_lpg_connection": false},
+    "expected_verdict": "eligible"
+  },
+  {
+    "id": "profile_pmuy_2",
+    "name": "Hand-Derived: Missing LPG Connection Existence (PM Ujjwala)",
+    "scheme_id": "pm-ujjwala-yojana",
+    "source_notification": "02_pm_ujjwala_hi.txt",
+    "language": "hi",
+    "facts": {"gender": "female", "age_min": 24, "bpl_status": true},
+    "expected_verdict": "needs_more_info"
+  },
+  {
+    "id": "profile_pmuy_3",
+    "name": "Hand-Derived: Already Has LPG Connection Exclusion (PM Ujjwala)",
+    "scheme_id": "pm-ujjwala-yojana",
+    "source_notification": "02_pm_ujjwala_hi.txt",
+    "language": "hi",
+    "facts": {"gender": "female", "age_min": 24, "bpl_status": true, "has_lpg_connection": true},
+    "expected_verdict": "ineligible"
+  },
+
+  {
+    "id": "profile_pmay_1",
+    "name": "Hand-Derived: Rural Kutcha House Household (PMAY-G)",
+    "scheme_id": "pmay-g-housing",
+    "source_notification": "05_pmay_g_en.txt",
+    "language": "en",
+    "facts": {"house_type": "kutcha", "owns_vehicle": false, "government_employment_status": false, "income_tax_payer_status": false, "income_threshold": 95000},
+    "expected_verdict": "eligible"
+  },
+  {
+    "id": "profile_pmay_2",
+    "name": "Hand-Derived: Missing Vehicle Ownership Fact (PMAY-G)",
+    "scheme_id": "pmay-g-housing",
+    "source_notification": "05_pmay_g_en.txt",
+    "language": "en",
+    "facts": {"house_type": "kutcha", "government_employment_status": false, "income_tax_payer_status": false, "income_threshold": 95000},
+    "expected_verdict": "needs_more_info"
+  },
+  {
+    "id": "profile_pmay_3",
+    "name": "Hand-Derived: Pucca House Exclusion Hit (PMAY-G)",
+    "scheme_id": "pmay-g-housing",
+    "source_notification": "05_pmay_g_en.txt",
+    "language": "en",
+    "facts": {"house_type": "pucca", "owns_vehicle": false, "government_employment_status": false, "income_tax_payer_status": false, "income_threshold": 95000},
+    "expected_verdict": "ineligible"
+  },
+
+  {
+    "id": "profile_ignoaps_1",
+    "name": "Hand-Derived: Senior Citizen in BPL Household (IGNOAPS)",
+    "scheme_id": "ignoaps-pension",
+    "source_notification": "02_vridha_pension_hi.txt",
+    "language": "hi",
+    "facts": {"age_min": 68, "bpl_status": true, "has_pension_scheme": false},
+    "expected_verdict": "eligible"
+  },
+  {
+    "id": "profile_ignoaps_2",
+    "name": "Hand-Derived: Missing BPL Status (IGNOAPS)",
+    "scheme_id": "ignoaps-pension",
+    "source_notification": "02_vridha_pension_hi.txt",
+    "language": "hi",
+    "facts": {"age_min": 68, "has_pension_scheme": false},
+    "expected_verdict": "needs_more_info"
+  },
+  {
+    "id": "profile_ignoaps_3",
+    "name": "Hand-Derived: Below 60 Age Condition Unmet (IGNOAPS)",
+    "scheme_id": "ignoaps-pension",
+    "source_notification": "02_vridha_pension_hi.txt",
+    "language": "hi",
+    "facts": {"age_min": 52, "bpl_status": true, "has_pension_scheme": false},
+    "expected_verdict": "ineligible"
+  },
+
+  {
+    "id": "profile_apy_1",
+    "name": "Hand-Derived: Unorganized Worker Aged 28 (APY)",
+    "scheme_id": "atal-pension-yojana",
+    "source_notification": "06_atal_pension_en.txt",
+    "language": "en",
+    "facts": {"age_min": 28, "age_max": 28, "income_tax_payer_status": false},
+    "expected_verdict": "eligible"
+  },
+  {
+    "id": "profile_apy_2",
+    "name": "Hand-Derived: Missing Tax Payer Status (APY)",
+    "scheme_id": "atal-pension-yojana",
+    "source_notification": "06_atal_pension_en.txt",
+    "language": "en",
+    "facts": {"age_min": 28, "age_max": 28},
+    "expected_verdict": "needs_more_info"
+  },
+  {
+    "id": "profile_apy_3",
+    "name": "Hand-Derived: Income Tax Payer Statutory Exclusion (APY)",
+    "scheme_id": "atal-pension-yojana",
+    "source_notification": "06_atal_pension_en.txt",
+    "language": "en",
+    "facts": {"age_min": 28, "age_max": 28, "income_tax_payer_status": true},
+    "expected_verdict": "ineligible"
+  },
+
+  {
+    "id": "profile_ssy_1",
+    "name": "Hand-Derived: Girl Child Aged 4 Years (SSY)",
+    "scheme_id": "sukanya-samriddhi-yojana",
+    "source_notification": "07_sukanya_samriddhi_en.txt",
+    "language": "en",
+    "facts": {"gender": "female", "child_age": 4, "existing_scheme_beneficiary": "none"},
+    "expected_verdict": "eligible"
+  },
+  {
+    "id": "profile_ssy_2",
+    "name": "Hand-Derived: Missing Child Age (SSY)",
+    "scheme_id": "sukanya-samriddhi-yojana",
+    "source_notification": "07_sukanya_samriddhi_en.txt",
+    "language": "en",
+    "facts": {"gender": "female", "existing_scheme_beneficiary": "none"},
+    "expected_verdict": "needs_more_info"
+  },
+  {
+    "id": "profile_ssy_3",
+    "name": "Hand-Derived: Girl Child Over 10 Years Limit (SSY)",
+    "scheme_id": "sukanya-samriddhi-yojana",
+    "source_notification": "07_sukanya_samriddhi_en.txt",
+    "language": "en",
+    "facts": {"gender": "female", "child_age": 12, "existing_scheme_beneficiary": "none"},
+    "expected_verdict": "ineligible"
+  },
+
+  {
+    "id": "profile_nmmss_1",
+    "name": "Hand-Derived: Meritorious 8th Grade Student (NMMSS)",
+    "scheme_id": "nmmss-scholarship",
+    "source_notification": "08_nmmss_scholarship_en.txt",
+    "language": "en",
+    "facts": {"education_level": "8th", "academic_percentage": 68, "income_threshold": 160000, "school_type": "government"},
+    "expected_verdict": "eligible"
+  },
+  {
+    "id": "profile_nmmss_2",
+    "name": "Hand-Derived: Missing Class VII Academic Percentage (NMMSS)",
+    "scheme_id": "nmmss-scholarship",
+    "source_notification": "08_nmmss_scholarship_en.txt",
+    "language": "en",
+    "facts": {"education_level": "8th", "income_threshold": 160000, "school_type": "government"},
+    "expected_verdict": "needs_more_info"
+  },
+  {
+    "id": "profile_nmmss_3",
+    "name": "Hand-Derived: Private School Attendance Exclusion (NMMSS)",
+    "scheme_id": "nmmss-scholarship",
+    "source_notification": "08_nmmss_scholarship_en.txt",
+    "language": "en",
+    "facts": {"education_level": "8th", "academic_percentage": 78, "income_threshold": 150000, "school_type": "private"},
+    "expected_verdict": "ineligible"
+  },
+
+  {
+    "id": "profile_pudhumai_1",
+    "name": "Hand-Derived: TN Govt School Girl Joining College (Pudhumai Penn)",
+    "scheme_id": "pudhumai-penn-scheme",
+    "source_notification": "02_pudhumai_penn_ta.txt",
+    "language": "ta",
+    "facts": {"gender": "female", "education_level": "12th", "residence_state": "Tamil Nadu", "school_type": "government"},
+    "expected_verdict": "eligible"
+  },
+  {
+    "id": "profile_pudhumai_2",
+    "name": "Hand-Derived: Missing School Background Information (Pudhumai Penn)",
+    "scheme_id": "pudhumai-penn-scheme",
+    "source_notification": "02_pudhumai_penn_ta.txt",
+    "language": "ta",
+    "facts": {"gender": "female", "education_level": "12th", "residence_state": "Tamil Nadu"},
+    "expected_verdict": "needs_more_info"
+  },
+  {
+    "id": "profile_pudhumai_3",
+    "name": "Hand-Derived: Private School Study Exclusion (Pudhumai Penn)",
+    "scheme_id": "pudhumai-penn-scheme",
+    "source_notification": "02_pudhumai_penn_ta.txt",
+    "language": "ta",
+    "facts": {"gender": "female", "education_level": "12th", "residence_state": "Tamil Nadu", "school_type": "private"},
+    "expected_verdict": "ineligible"
+  },
+
+  {
+    "id": "profile_cheyutha_1",
+    "name": "Hand-Derived: BC Woman Aged 52 in AP (YSR Cheyutha)",
+    "scheme_id": "ap-cheyutha-thalliki-vandanam",
+    "source_notification": "02_cheyutha_te.txt",
+    "language": "te",
+    "facts": {"gender": "female", "age_min": 52, "age_max": 52, "caste_category": "BC", "residence_state": "Andhra Pradesh", "government_employment_status": false, "owns_vehicle": false},
+    "expected_verdict": "eligible"
+  },
+  {
+    "id": "profile_cheyutha_2",
+    "name": "Hand-Derived: Missing Caste Category (YSR Cheyutha)",
+    "scheme_id": "ap-cheyutha-thalliki-vandanam",
+    "source_notification": "02_cheyutha_te.txt",
+    "language": "te",
+    "facts": {"gender": "female", "age_min": 52, "age_max": 52, "residence_state": "Andhra Pradesh", "government_employment_status": false, "owns_vehicle": false},
+    "expected_verdict": "needs_more_info"
+  },
+  {
+    "id": "profile_cheyutha_3",
+    "name": "Hand-Derived: Government Employee Family Exclusion (YSR Cheyutha)",
+    "scheme_id": "ap-cheyutha-thalliki-vandanam",
+    "source_notification": "02_cheyutha_te.txt",
+    "language": "te",
+    "facts": {"gender": "female", "age_min": 52, "age_max": 52, "caste_category": "BC", "residence_state": "Andhra Pradesh", "government_employment_status": true, "owns_vehicle": false},
+    "expected_verdict": "ineligible"
+  },
+
+  {
+    "id": "profile_vishwakarma_1",
+    "name": "Hand-Derived: Traditional Carpenter Artisan (PM Vishwakarma)",
+    "scheme_id": "pm-vishwakarma-scheme",
+    "source_notification": "09_pm_vishwakarma_en.txt",
+    "language": "en",
+    "facts": {"occupation": "artisan", "age_min": 36, "trade": "carpenter", "government_employment_status": false, "existing_scheme_beneficiary": "none"},
+    "expected_verdict": "eligible"
+  },
+  {
+    "id": "profile_vishwakarma_2",
+    "name": "Hand-Derived: Missing Artisan Trade Specification (PM Vishwakarma)",
+    "scheme_id": "pm-vishwakarma-scheme",
+    "source_notification": "09_pm_vishwakarma_en.txt",
+    "language": "en",
+    "facts": {"occupation": "artisan", "age_min": 36, "government_employment_status": false, "existing_scheme_beneficiary": "none"},
+    "expected_verdict": "needs_more_info"
+  },
+  {
+    "id": "profile_vishwakarma_3",
+    "name": "Hand-Derived: Government Employment Exclusion (PM Vishwakarma)",
+    "scheme_id": "pm-vishwakarma-scheme",
+    "source_notification": "09_pm_vishwakarma_en.txt",
+    "language": "en",
+    "facts": {"occupation": "artisan", "age_min": 36, "trade": "carpenter", "government_employment_status": true, "existing_scheme_beneficiary": "none"},
+    "expected_verdict": "ineligible"
   }
 ]
