@@ -94,20 +94,39 @@ export const LandingPage: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {MOCK_SCHEMES.map((scheme) => (
+          {MOCK_SCHEMES.filter((s) => [
+            'ayushman-bharat-pmjay',
+            'pm-ujjwala-yojana',
+            'pm-awas-yojana-gramin',
+            'pudhumai-penn-scheme',
+            'ap-cheyutha-thalliki-vandanam',
+            'pm-vishwakarma-scheme'
+          ].includes(s.id)).map((scheme) => (
             <GlowCard key={scheme.id} onClick={() => navigate(`/schemes/${scheme.id}`)}>
               <div className="flex items-center justify-between mb-4">
                 <Badge value={scheme.category} />
-                <span className="text-[10px] font-mono text-dark-muted">{scheme.language}</span>
+                <span className={`text-[10px] font-mono px-2 py-0.5 rounded border ${
+                  scheme.language === 'Hindi'
+                    ? 'bg-amber-500/10 text-amber-300 border-amber-500/30'
+                    : scheme.language === 'Tamil'
+                    ? 'bg-orange-500/10 text-orange-300 border-orange-500/30'
+                    : scheme.language === 'Telugu'
+                    ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30'
+                    : 'bg-brand-cyan/10 text-brand-cyan border-brand-cyan/30'
+                }`}>
+                  {scheme.language}
+                </span>
               </div>
 
-              <h3 className="text-base font-bold text-white mb-2 line-clamp-1">{scheme.title}</h3>
+              <h3 className="text-base font-bold text-white mb-2 line-clamp-2 title-hover" title={scheme.title}>
+                {scheme.short_name || scheme.title}
+              </h3>
               <p className="text-xs text-dark-muted mb-6 line-clamp-2 leading-relaxed">{scheme.summary}</p>
 
               <div className="pt-4 border-t border-white/5 flex items-center justify-between text-xs">
                 <span className="text-dark-muted">Key Benefit:</span>
-                <span className="text-brand-emerald font-bold">
-                  {scheme.benefits[0]?.amount ? `${scheme.benefits[0].amount}` : 'Full Assistance'}
+                <span className="text-brand-emerald font-bold line-clamp-1 text-right max-w-[200px]" title={scheme.key_benefit}>
+                  {scheme.key_benefit || scheme.benefits[0]?.amount || 'Full Assistance'}
                 </span>
               </div>
             </GlowCard>

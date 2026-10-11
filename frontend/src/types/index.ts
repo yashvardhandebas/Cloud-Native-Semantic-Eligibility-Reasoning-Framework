@@ -42,19 +42,34 @@ export interface SchemeExclusion {
   overrides_all: boolean;
 }
 
+export interface DemoProfile {
+  name: string;
+  verdict: VerdictType;
+  facts: CitizenFacts;
+}
+
 export interface Scheme {
   id: string;
   title: string;
-  category: 'Education' | 'Agriculture' | 'Health' | 'Housing' | 'Pension' | 'Women & Child';
+  short_name?: string;
+  category: 'Education' | 'Agriculture' | 'Health' | 'Housing' | 'Pension' | 'Women & Child' | 'Livelihood';
   state: string;
   language: string;
   version: string;
   last_amended: string;
   summary: string;
+  key_benefit?: string;
+  source_url?: string;
+  verified_on?: string;
   conditions: ConditionRule[];
   documents: SchemeDocument[];
   benefits: SchemeBenefit[];
   exclusions: SchemeExclusion[];
+  demo_profiles?: {
+    eligible: DemoProfile;
+    needs_info: DemoProfile;
+    ineligible: DemoProfile;
+  };
 }
 
 export interface CitizenFacts {
@@ -63,11 +78,28 @@ export interface CitizenFacts {
   education_level?: string | null;
   income_threshold?: number | null;
   land_ownership_ha?: number | null;
+  land_ownership?: number | null;
   age_min?: number | null;
+  age_max?: number | null;
+  age?: number | null;
+  gender?: string | null;
+  residence_state?: string | null;
+  occupation?: string | null;
+  bpl_status?: boolean | null;
+  has_lpg_connection?: boolean | null;
+  house_type?: string | null;
+  owns_vehicle?: boolean | null;
+  trade?: string | null;
+  school_type?: string | null;
+  child_age?: number | null;
+  academic_percentage?: number | null;
+  has_pension_scheme?: boolean | null;
   income_tax_payer_status?: boolean | null;
   institutional_landholder?: boolean | null;
   constitutional_post_holder?: boolean | null;
   government_employee?: boolean | null;
+  government_employment_status?: boolean | null;
+  existing_scheme_beneficiary?: string | boolean | null;
   [key: string]: any;
 }
 
@@ -109,8 +141,8 @@ export interface EvaluationOutcome {
   clause_details: ClauseEvaluationDetail[];
   missing_evidence: MissingEvidenceItem[];
   actionable_recommendations: RecommendationItem[];
-  citizen_summary: string;
-  evaluated_as_of: string;
+  citizen_summary?: string;
+  evaluated_as_of?: string;
 }
 
 export interface BenchmarkMetrics {

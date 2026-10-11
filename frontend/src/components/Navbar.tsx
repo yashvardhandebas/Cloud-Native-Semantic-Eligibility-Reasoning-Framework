@@ -15,8 +15,9 @@ export const Navbar: React.FC = () => {
   const navLinks = [
     { path: '/schemes', label: 'Schemes' },
     { path: '/check', label: 'Check Eligibility' },
-    { path: '/lab', label: 'Rule Lab' },
+    { path: '/matches', label: 'My Matches' },
     { path: '/compare', label: 'Compare' },
+    { path: '/amend', label: 'Amendment Sim' },
     { path: '/evaluation', label: 'Benchmarks' },
   ];
 

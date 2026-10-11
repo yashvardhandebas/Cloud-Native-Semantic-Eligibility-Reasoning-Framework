@@ -11,7 +11,10 @@ import {
   CheckCircle, 
   ArrowLeft,
   Download,
-  Share2
+  Share2,
+  ShieldAlert,
+  ExternalLink,
+  Sparkles
 } from 'lucide-react';
 import { MOCK_SCHEMES } from '../api/mockData';
 import { Badge } from '../components/Badge';
@@ -26,6 +29,26 @@ export const SchemeDetailPage: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 space-y-8">
+      {/* Official Advisory & Source Banner */}
+      <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-amber-200">
+        <div className="flex items-center gap-2">
+          <ShieldAlert className="w-4 h-4 text-amber-400 shrink-0" />
+          <span>
+            <strong>Official Advisory:</strong> Demo built from public guidelines. Not an official eligibility decision. Verify on the official portal.
+          </span>
+        </div>
+        {scheme.source_url && (
+          <a
+            href={scheme.source_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-brand-cyan hover:underline flex items-center gap-1 font-semibold shrink-0"
+          >
+            Official Portal <ExternalLink className="w-3 h-3" />
+          </a>
+        )}
+      </div>
+
       {/* Back link */}
       <button
         onClick={() => navigate('/schemes')}
@@ -43,15 +66,35 @@ export const SchemeDetailPage: React.FC = () => {
               <span className="text-xs font-mono text-brand-cyan bg-brand-cyan/10 px-2.5 py-0.5 rounded-full border border-brand-cyan/20">
                 {scheme.version}
               </span>
-              <span className="text-xs text-dark-muted">Source: {scheme.language}</span>
+              <span className={`text-xs font-mono px-2 py-0.5 rounded border ${
+                scheme.language === 'Hindi'
+                  ? 'bg-amber-500/10 text-amber-300 border-amber-500/30'
+                  : scheme.language === 'Tamil'
+                  ? 'bg-orange-500/10 text-orange-300 border-orange-500/30'
+                  : scheme.language === 'Telugu'
+                  ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30'
+                  : 'bg-brand-cyan/10 text-brand-cyan border-brand-cyan/30'
+              }`}>
+                Source: {scheme.language}
+              </span>
+              {scheme.verified_on && (
+                <span className="text-[11px] text-dark-muted font-mono">
+                  Verified: {scheme.verified_on}
+                </span>
+              )}
             </div>
             <h1 className="text-2xl sm:text-3xl font-extrabold text-white">{scheme.title}</h1>
+            {scheme.key_benefit && (
+              <div className="text-xs font-semibold text-brand-emerald pt-1 flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5" /> Key Benefit: {scheme.key_benefit}
+              </div>
+            )}
           </div>
 
           <div className="flex items-center gap-3">
             <button
               onClick={() => navigate(`/check/${scheme.id}`)}
-              className="bg-brand-gradient text-dark-bg font-bold text-xs px-6 py-2.5 rounded-full shadow-lg"
+              className="bg-brand-gradient text-dark-bg font-bold text-xs px-6 py-2.5 rounded-full shadow-lg hover:opacity-95 transition"
             >
               Check My Eligibility
             </button>
@@ -146,6 +189,25 @@ export const SchemeDetailPage: React.FC = () => {
                 <span className="text-dark-muted">Last Amended Date:</span>
                 <span className="text-white font-mono">{scheme.last_amended}</span>
               </div>
+              {scheme.verified_on && (
+                <div className="flex justify-between py-1 border-b border-white/5">
+                  <span className="text-dark-muted">Guidelines Verified:</span>
+                  <span className="text-brand-cyan font-mono">{scheme.verified_on}</span>
+                </div>
+              )}
+              {scheme.source_url && (
+                <div className="flex justify-between py-1 border-b border-white/5 items-center">
+                  <span className="text-dark-muted">Official Portal:</span>
+                  <a
+                    href={scheme.source_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-brand-cyan hover:underline flex items-center gap-1 font-semibold"
+                  >
+                    View Portal <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+              )}
             </div>
           </div>
         </div>
