@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { 
   CheckCircle, 
   HelpCircle, 
@@ -89,6 +90,7 @@ const DEMO_PERSONAS: PersonaPreset[] = [
 ];
 
 export const MyMatchesPage: React.FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   // Unified Citizen Profile Form State
@@ -166,23 +168,22 @@ export const MyMatchesPage: React.FC = () => {
         <div className="flex items-center gap-2">
           <ShieldAlert className="w-4 h-4 text-amber-400 shrink-0" />
           <span>
-            <strong>Demo Reasoning Simulation:</strong> Evaluated across {MOCK_SCHEMES.length} welfare schemes using 3-valued semantic logic.
-            Not an official eligibility decision. Verify on the official portal.
+            {t('check.officialAdvisory')}
           </span>
         </div>
         <button
           onClick={exportCSV}
           className="bg-white/5 border border-white/10 hover:bg-white/10 text-white font-semibold text-xs px-3 py-1.5 rounded-xl flex items-center gap-1.5 shrink-0"
         >
-          <Download className="w-3.5 h-3.5" /> Export Evaluated CSV
+          <Download className="w-3.5 h-3.5" /> {t('matches.exportCsv')}
         </button>
       </div>
 
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-white mb-2">Unified Citizen Profile Matching</h1>
+        <h1 className="text-3xl font-bold text-white mb-2">{t('matches.title')}</h1>
         <p className="text-xs text-dark-muted">
-          One unified demographic profile evaluated simultaneously across all 13 government welfare schemes, ranked by Readiness Score and explainable eligibility status.
+          {t('matches.subtitle')}
         </p>
       </div>
 
@@ -190,7 +191,7 @@ export const MyMatchesPage: React.FC = () => {
       <div className="glass-card p-5 rounded-3xl border border-white/10 space-y-3">
         <div className="flex items-center gap-2 text-xs font-semibold text-white">
           <Sparkles className="w-4 h-4 text-brand-cyan" />
-          <span>Quick Load Citizen Persona (For Professor Demo):</span>
+          <span>{t('matches.loadPersona')}</span>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {DEMO_PERSONAS.map((preset, idx) => (
@@ -214,7 +215,7 @@ export const MyMatchesPage: React.FC = () => {
             filterVerdict === 'ALL' ? 'border-brand-cyan bg-brand-cyan/10' : 'border-white/10 hover:border-white/20'
           }`}
         >
-          <span className="text-xs text-dark-muted block">Total Ingested</span>
+          <span className="text-xs text-dark-muted block">{t('matches.matchedSchemes')}</span>
           <span className="text-2xl font-bold text-white font-mono">{MOCK_SCHEMES.length}</span>
         </div>
         <div
@@ -223,7 +224,7 @@ export const MyMatchesPage: React.FC = () => {
             filterVerdict === 'ELIGIBLE' ? 'border-emerald-500 bg-emerald-500/10' : 'border-white/10 hover:border-white/20'
           }`}
         >
-          <span className="text-xs text-emerald-400 block">Eligible Schemes</span>
+          <span className="text-xs text-emerald-400 block">{t('verdicts.ELIGIBLE')}</span>
           <span className="text-2xl font-bold text-emerald-300 font-mono">{eligibleCount}</span>
         </div>
         <div
@@ -232,7 +233,7 @@ export const MyMatchesPage: React.FC = () => {
             filterVerdict === 'NEEDS_MORE_INFO' ? 'border-amber-500 bg-amber-500/10' : 'border-white/10 hover:border-white/20'
           }`}
         >
-          <span className="text-xs text-amber-400 block">Needs More Info</span>
+          <span className="text-xs text-amber-400 block">{t('verdicts.NEEDS_MORE_INFO')}</span>
           <span className="text-2xl font-bold text-amber-300 font-mono">{needsInfoCount}</span>
         </div>
         <div
@@ -241,7 +242,7 @@ export const MyMatchesPage: React.FC = () => {
             filterVerdict === 'INELIGIBLE' ? 'border-rose-500 bg-rose-500/10' : 'border-white/10 hover:border-white/20'
           }`}
         >
-          <span className="text-xs text-rose-400 block">Ineligible</span>
+          <span className="text-xs text-rose-400 block">{t('verdicts.INELIGIBLE')}</span>
           <span className="text-2xl font-bold text-rose-300 font-mono">{ineligibleCount}</span>
         </div>
       </div>
@@ -294,7 +295,7 @@ export const MyMatchesPage: React.FC = () => {
 
                 <div className="flex items-center gap-6 shrink-0 w-full md:w-auto justify-between md:justify-end">
                   <div className="text-right">
-                    <span className="text-[11px] text-dark-muted block">Readiness</span>
+                    <span className="text-[11px] text-dark-muted block">{t('matches.readinessScore')}</span>
                     <span className={`text-lg font-bold font-mono ${
                       outcome.verdict === 'ELIGIBLE' ? 'text-emerald-400' : outcome.verdict === 'NEEDS_MORE_INFO' ? 'text-amber-400' : 'text-rose-400'
                     }`}>
@@ -308,7 +309,7 @@ export const MyMatchesPage: React.FC = () => {
                     onClick={(e) => toggleWhy(scheme.id, e)}
                     className="flex items-center gap-1 text-xs text-brand-cyan hover:underline font-semibold bg-white/5 border border-white/10 px-3 py-1.5 rounded-xl"
                   >
-                    Why? {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                    {t('matches.whyBtn')} {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                   </button>
 
                   <ArrowRight className="w-4 h-4 text-dark-muted hidden md:block" />

@@ -25,17 +25,17 @@ export const LandingPage: React.FC = () => {
         <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-1.5 rounded-full mb-8 shadow-sm">
           <Sparkles className="w-3.5 h-3.5 text-brand-cyan" />
           <span className="text-xs font-mono font-medium text-dark-muted tracking-wider uppercase">
-            AI-POWERED SEMANTIC ELIGIBILITY
+            {t('hero.eyebrow')}
           </span>
         </div>
 
         <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.15] mb-6">
-          Know the schemes you <br />
-          <span className="text-gradient">actually qualify</span> for.
+          {t('hero.titlePart1')} <br />
+          <span className="text-gradient">{t('hero.titleGradient')}</span> {t('hero.titlePart2')}
         </h1>
 
         <p className="text-dark-muted text-sm sm:text-base max-w-xl mx-auto mb-10 leading-relaxed">
-          Transparent, explainable welfare eligibility reasoning powered by Graph RAG & Multilingual AI.
+          {t('hero.subtitle')}
         </p>
 
         {/* Clean Search Input */}
@@ -44,7 +44,7 @@ export const LandingPage: React.FC = () => {
             <Search className="w-4 h-4 text-dark-muted ml-4 shrink-0" />
             <input
               type="text"
-              placeholder="Search by scheme name, caste (SC/ST), or keyword..."
+              placeholder={t('hero.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-transparent px-4 py-2.5 text-xs text-white placeholder-dark-muted focus:outline-none"
@@ -53,7 +53,7 @@ export const LandingPage: React.FC = () => {
               type="submit"
               className="bg-white text-dark-bg hover:bg-white/90 font-semibold px-6 py-2.5 rounded-full text-xs transition shadow-md shrink-0"
             >
-              Search
+              {t('hero.searchBtn')}
             </button>
           </div>
         </form>
@@ -64,19 +64,19 @@ export const LandingPage: React.FC = () => {
         <div className="glass-card p-8 rounded-3xl grid grid-cols-2 md:grid-cols-4 gap-8 text-center border border-white/5">
           <div>
             <div className="text-3xl font-bold text-white font-mono">100%</div>
-            <div className="text-[11px] text-dark-muted mt-1 uppercase tracking-wider font-medium">Verdict Accuracy</div>
+            <div className="text-[11px] text-dark-muted mt-1 uppercase tracking-wider font-medium">{t('stats.verdictAccuracy')}</div>
           </div>
           <div>
             <div className="text-3xl font-bold text-brand-cyan font-mono">2.57x</div>
-            <div className="text-[11px] text-dark-muted mt-1 uppercase tracking-wider font-medium">Live AuraDB Speedup</div>
+            <div className="text-[11px] text-dark-muted mt-1 uppercase tracking-wider font-medium">{t('stats.speedup')}</div>
           </div>
           <div>
             <div className="text-3xl font-bold text-brand-emerald font-mono">4 Languages</div>
-            <div className="text-[11px] text-dark-muted mt-1 uppercase tracking-wider font-medium">EN • HI • TA • TE</div>
+            <div className="text-[11px] text-dark-muted mt-1 uppercase tracking-wider font-medium">{t('stats.languages')}</div>
           </div>
           <div>
-            <div className="text-3xl font-bold text-white font-mono">35 / 35</div>
-            <div className="text-[11px] text-dark-muted mt-1 uppercase tracking-wider font-medium">Verified Unit Tests</div>
+            <div className="text-3xl font-bold text-white font-mono">41 / 41</div>
+            <div className="text-[11px] text-dark-muted mt-1 uppercase tracking-wider font-medium">{t('stats.verifiedTests')}</div>
           </div>
         </div>
       </section>
@@ -85,11 +85,11 @@ export const LandingPage: React.FC = () => {
       <section className="max-w-5xl mx-auto px-4">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h2 className="text-2xl font-bold text-white">Featured Welfare Schemes</h2>
-            <p className="text-xs text-dark-muted mt-1">Parsed into structured condition graphs</p>
+            <h2 className="text-2xl font-bold text-white">{t('featured.title')}</h2>
+            <p className="text-xs text-dark-muted mt-1">{t('featured.subtitle')}</p>
           </div>
           <Link to="/schemes" className="text-xs font-semibold text-brand-cyan hover:underline flex items-center gap-1">
-            Browse All <ArrowRight className="w-3.5 h-3.5" />
+            {t('featured.browseAll')} <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
@@ -104,7 +104,7 @@ export const LandingPage: React.FC = () => {
           ].includes(s.id)).map((scheme) => (
             <GlowCard key={scheme.id} onClick={() => navigate(`/schemes/${scheme.id}`)}>
               <div className="flex items-center justify-between mb-4">
-                <Badge value={scheme.category} />
+                <Badge value={t(`categories.${scheme.category}`, scheme.category)} />
                 <span className={`text-[10px] font-mono px-2 py-0.5 rounded border ${
                   scheme.language === 'Hindi'
                     ? 'bg-amber-500/10 text-amber-300 border-amber-500/30'
@@ -124,7 +124,7 @@ export const LandingPage: React.FC = () => {
               <p className="text-xs text-dark-muted mb-6 line-clamp-2 leading-relaxed">{scheme.summary}</p>
 
               <div className="pt-4 border-t border-white/5 flex items-center justify-between text-xs">
-                <span className="text-dark-muted">Key Benefit:</span>
+                <span className="text-dark-muted">{t('featured.keyBenefit')}</span>
                 <span className="text-brand-emerald font-bold line-clamp-1 text-right max-w-[200px]" title={scheme.key_benefit}>
                   {scheme.key_benefit || scheme.benefits[0]?.amount || 'Full Assistance'}
                 </span>
@@ -137,30 +137,30 @@ export const LandingPage: React.FC = () => {
       {/* Clean 4-Layer Architecture Section */}
       <section className="max-w-5xl mx-auto px-4">
         <div className="text-center max-w-xl mx-auto mb-12">
-          <h2 className="text-2xl font-bold text-white mb-2">Four-Layer Framework Pipeline</h2>
-          <p className="text-xs text-dark-muted">Decoupled microservices architecture</p>
+          <h2 className="text-2xl font-bold text-white mb-2">{t('architecture.title')}</h2>
+          <p className="text-xs text-dark-muted">{t('architecture.subtitle')}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="glass-card p-6 rounded-2xl">
             <div className="text-[10px] font-mono text-brand-cyan font-bold mb-2">LAYER 1</div>
-            <h4 className="text-sm font-bold text-white mb-1">OCR & Ingestion</h4>
-            <p className="text-xs text-dark-muted leading-relaxed">Tesseract OCR and regex noise cleaner for scanned PDFs.</p>
+            <h4 className="text-sm font-bold text-white mb-1">{t('architecture.l1Title')}</h4>
+            <p className="text-xs text-dark-muted leading-relaxed">{t('architecture.l1Desc')}</p>
           </div>
           <div className="glass-card p-6 rounded-2xl">
             <div className="text-[10px] font-mono text-brand-cyan font-bold mb-2">LAYER 2</div>
-            <h4 className="text-sm font-bold text-white mb-1">Semantic Extraction</h4>
-            <p className="text-xs text-dark-muted leading-relaxed">SentenceTransformers mapping clauses to canonical ontology fields.</p>
+            <h4 className="text-sm font-bold text-white mb-1">{t('architecture.l2Title')}</h4>
+            <p className="text-xs text-dark-muted leading-relaxed">{t('architecture.l2Desc')}</p>
           </div>
           <div className="glass-card p-6 rounded-2xl">
             <div className="text-[10px] font-mono text-brand-cyan font-bold mb-2">LAYER 3</div>
-            <h4 className="text-sm font-bold text-white mb-1">Reasoning Engine</h4>
-            <p className="text-xs text-dark-muted leading-relaxed">Live Neo4j AuraDB graph with Cypher versioned historical queries.</p>
+            <h4 className="text-sm font-bold text-white mb-1">{t('architecture.l3Title')}</h4>
+            <p className="text-xs text-dark-muted leading-relaxed">{t('architecture.l3Desc')}</p>
           </div>
           <div className="glass-card p-6 rounded-2xl">
             <div className="text-[10px] font-mono text-brand-cyan font-bold mb-2">LAYER 4</div>
-            <h4 className="text-sm font-bold text-white mb-1">Delivery API</h4>
-            <p className="text-xs text-dark-muted leading-relaxed">0–100 Readiness Scorer and actionable evidence completion steps.</p>
+            <h4 className="text-sm font-bold text-white mb-1">{t('architecture.l4Title')}</h4>
+            <p className="text-xs text-dark-muted leading-relaxed">{t('architecture.l4Desc')}</p>
           </div>
         </div>
       </section>

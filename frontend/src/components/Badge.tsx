@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { ClauseStatus, VerdictType, MutabilityType } from '../types';
 
 interface BadgeProps {
@@ -8,6 +9,7 @@ interface BadgeProps {
 }
 
 export const Badge: React.FC<BadgeProps> = ({ type = 'default', value, className = '' }) => {
+  const { t } = useTranslation();
   let styleClasses = 'bg-white/10 text-white border-white/10';
 
   if (type === 'status' || type === 'verdict') {
@@ -26,11 +28,18 @@ export const Badge: React.FC<BadgeProps> = ({ type = 'default', value, className
     }
   }
 
+  const displayValue =
+    type === 'verdict' || type === 'status'
+      ? t(`verdicts.${value}`, value)
+      : type === 'category'
+      ? t(`categories.${value}`, value)
+      : t(`categories.${value}`, value);
+
   return (
     <span
       className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold tracking-wide border uppercase ${styleClasses} ${className}`}
     >
-      {value}
+      {displayValue}
     </span>
   );
 };

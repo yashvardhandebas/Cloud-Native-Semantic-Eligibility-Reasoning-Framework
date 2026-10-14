@@ -1115,6 +1115,602 @@ export const MOCK_SCHEMES: Scheme[] = [
         facts: { scheme_id: 'pm-vishwakarma-scheme', occupation: 'artisan', age_min: 36, trade: 'carpenter', government_employment_status: true, existing_scheme_beneficiary: 'none' }
       }
     }
+  },
+
+  // 14. Pradhan Mantri Matru Vandana Yojana (PMMVY) - Women & Child, Hindi
+  {
+    id: 'pm-matru-vandana-yojana',
+    title: 'प्रधानमंत्री मातृ वंदना योजना (PMMVY)',
+    short_name: 'PM Matru Vandana (PMMVY)',
+    category: 'Women & Child',
+    state: 'Central',
+    language: 'Hindi',
+    version: 'v2.0',
+    last_amended: '2024-07-01',
+    summary: 'गर्भवती महिलाओं और स्तनपान कराने वाली माताओं के स्वास्थ्य और पोषण में सुधार हेतु ₹5,000 की प्रत्यक्ष नकद सहायता (Direct Benefit Transfer)।',
+    key_benefit: '₹5,000 मातृत्व नकद प्रोत्साहन (2 किस्तों में DBT)',
+    source_url: 'https://pmmvy.wcd.gov.in',
+    verified_on: '2024-07-01',
+    conditions: [
+      {
+        id: 'mv1',
+        field: 'gender',
+        field_display: 'Gender',
+        operator: 'eq',
+        value: 'female',
+        original_clause: 'आवेदक महिला होनी चाहिए।',
+        mutability: 'IMMUTABLE',
+        confidence: 0.99,
+        language: 'hi',
+        is_current: true,
+        valid_from: '2024-01-01',
+      },
+      {
+        id: 'mv2',
+        field: 'age_min',
+        field_display: 'Minimum Age',
+        operator: 'gte',
+        value: 19,
+        unit: 'years',
+        original_clause: 'गर्भवती महिला की न्यूनतम आयु 19 वर्ष या उससे अधिक होनी चाहिए।',
+        mutability: 'IMMUTABLE',
+        confidence: 0.97,
+        language: 'hi',
+        is_current: true,
+        valid_from: '2024-01-01',
+      },
+      {
+        id: 'mv3',
+        field: 'is_pregnant_or_lactating',
+        field_display: 'Maternity Status',
+        operator: 'eq',
+        value: true,
+        original_clause: 'महिला प्रथम जीवित बच्चे के लिए गर्भवती अथवा धात्री माता होनी चाहिए।',
+        mutability: 'MUTABLE',
+        confidence: 0.96,
+        language: 'hi',
+        is_current: true,
+        valid_from: '2024-01-01',
+      },
+    ],
+    documents: [
+      { id: 'mv_d1', title: 'Mother and Child Protection (MCP) Card', required_for_fields: ['is_pregnant_or_lactating'], issuing_authority: 'Ministry of Health and Family Welfare' },
+      { id: 'mv_d2', title: 'Aadhaar Card of Beneficiary', required_for_fields: ['identity'], issuing_authority: 'UIDAI' },
+      { id: 'mv_d3', title: 'Aadhaar Linked Bank Passbook', required_for_fields: ['bank_account'], issuing_authority: 'Scheduled Commercial Bank' },
+    ],
+    benefits: [
+      { id: 'mv_b1', title: 'First Installment (Early Registration)', amount: '₹3,000', frequency: 'One-time', description: 'Credited on early registration of pregnancy.' },
+      { id: 'mv_b2', title: 'Second Installment (Birth & Immunization)', amount: '₹2,00,0', frequency: 'One-time', description: 'Credited after institutional birth and child immunization.' },
+    ],
+    exclusions: [
+      { id: 'mv_ex1', title: 'Regular Government Employees', condition_field: 'government_employment_status', condition_value: 'true', original_clause: 'Women in regular employment with Central or State Government or PSUs are excluded.', overrides_all: true },
+    ],
+    demo_profiles: {
+      eligible: {
+        name: 'Eligible Pregnant Woman (Age 24)',
+        verdict: 'ELIGIBLE',
+        facts: { scheme_id: 'pm-matru-vandana-yojana', gender: 'female', age_min: 24, is_pregnant_or_lactating: true, government_employment_status: false }
+      },
+      needs_info: {
+        name: 'Pregnant Mother (Missing Age Proof Fact)',
+        verdict: 'NEEDS_MORE_INFO',
+        facts: { scheme_id: 'pm-matru-vandana-yojana', gender: 'female', age_min: null, is_pregnant_or_lactating: true, government_employment_status: false }
+      },
+      ineligible: {
+        name: 'Government Employee Mother (Exclusion Hit)',
+        verdict: 'INELIGIBLE',
+        facts: { scheme_id: 'pm-matru-vandana-yojana', gender: 'female', age_min: 27, is_pregnant_or_lactating: true, government_employment_status: true }
+      }
+    }
+  },
+
+  // 15. Pradhan Mantri Suraksha Bima Yojana (PMSBY) - Health/Insurance, English
+  {
+    id: 'pm-suraksha-bima-yojana',
+    title: 'Pradhan Mantri Suraksha Bima Yojana (PMSBY)',
+    short_name: 'PM Suraksha Bima (PMSBY)',
+    category: 'Health',
+    state: 'Central',
+    language: 'English',
+    version: 'v1.5',
+    last_amended: '2024-06-01',
+    summary: 'Affordable accidental death and disability insurance cover offering ₹2 Lakh protection for an annual nominal premium of just ₹20.',
+    key_benefit: '₹2,00,000 accidental death & full disability insurance cover',
+    source_url: 'https://www.jansuraksha.gov.in',
+    verified_on: '2024-06-01',
+    conditions: [
+      {
+        id: 'sb1',
+        field: 'age_min',
+        field_display: 'Minimum Age',
+        operator: 'gte',
+        value: 18,
+        unit: 'years',
+        original_clause: 'Available to people in the age group of 18 to 70 years.',
+        mutability: 'IMMUTABLE',
+        confidence: 0.99,
+        language: 'en',
+        is_current: true,
+        valid_from: '2024-01-01',
+      },
+      {
+        id: 'sb2',
+        field: 'age_max',
+        field_display: 'Maximum Age',
+        operator: 'lte',
+        value: 70,
+        unit: 'years',
+        original_clause: 'Maximum entry and renewal age limit is 70 years.',
+        mutability: 'IMMUTABLE',
+        confidence: 0.98,
+        language: 'en',
+        is_current: true,
+        valid_from: '2024-01-01',
+      },
+      {
+        id: 'sb3',
+        field: 'has_bank_account',
+        field_display: 'Savings Bank Account with Auto-Debit',
+        operator: 'eq',
+        value: true,
+        original_clause: 'Individual must have a savings bank account with consent for auto-debit of annual ₹20 premium.',
+        mutability: 'MUTABLE',
+        confidence: 0.97,
+        language: 'en',
+        is_current: true,
+        valid_from: '2024-01-01',
+      },
+    ],
+    documents: [
+      { id: 'sb_d1', title: 'Aadhaar Card (e-KYC)', required_for_fields: ['identity'], issuing_authority: 'UIDAI' },
+      { id: 'sb_d2', title: 'Bank Account Passbook / Mandate Form', required_for_fields: ['has_bank_account'], issuing_authority: 'Participating Bank' },
+    ],
+    benefits: [
+      { id: 'sb_b1', title: 'Accidental Death Benefit', amount: '₹2,00,000', frequency: 'Lump-sum', description: 'Payable to nominee upon accidental death.' },
+      { id: 'sb_b2', title: 'Permanent Total Disability Benefit', amount: '₹2,00,000', frequency: 'Lump-sum', description: 'Full coverage for loss of both eyes or both hands/feet.' },
+    ],
+    exclusions: [
+      { id: 'sb_ex1', title: 'Exceeded Age Ceiling', condition_field: 'age_exceeded_70', condition_value: 'true', original_clause: 'Cover terminates upon attaining age 70.', overrides_all: true },
+    ],
+    demo_profiles: {
+      eligible: {
+        name: 'Eligible Citizen (Age 34)',
+        verdict: 'ELIGIBLE',
+        facts: { scheme_id: 'pm-suraksha-bima-yojana', age_min: 34, age_max: 34, has_bank_account: true }
+      },
+      needs_info: {
+        name: 'Citizen (Missing Bank Account Fact)',
+        verdict: 'NEEDS_MORE_INFO',
+        facts: { scheme_id: 'pm-suraksha-bima-yojana', age_min: 34, age_max: 34, has_bank_account: null }
+      },
+      ineligible: {
+        name: 'Senior Citizen Age 75 (Exceeded Age Limit)',
+        verdict: 'INELIGIBLE',
+        facts: { scheme_id: 'pm-suraksha-bima-yojana', age_min: 75, age_max: 75, has_bank_account: true }
+      }
+    }
+  },
+
+  // 16. Pradhan Mantri Jeevan Jyoti Bima Yojana (PMJJBY) - Health/Life Insurance, English
+  {
+    id: 'pm-jeevan-jyoti-bima',
+    title: 'Pradhan Mantri Jeevan Jyoti Bima Yojana (PMJJBY)',
+    short_name: 'PM Jeevan Jyoti (PMJJBY)',
+    category: 'Health',
+    state: 'Central',
+    language: 'English',
+    version: 'v1.5',
+    last_amended: '2024-06-01',
+    summary: 'Universal term life insurance providing ₹2,00,000 financial protection for death due to any reason for an annual premium of ₹436.',
+    key_benefit: '₹2,00,000 life insurance cover for any cause of death',
+    source_url: 'https://www.jansuraksha.gov.in',
+    verified_on: '2024-06-01',
+    conditions: [
+      {
+        id: 'jj1',
+        field: 'age_min',
+        field_display: 'Minimum Age',
+        operator: 'gte',
+        value: 18,
+        unit: 'years',
+        original_clause: 'Individuals in the age group of 18 to 50 years are eligible.',
+        mutability: 'IMMUTABLE',
+        confidence: 0.99,
+        language: 'en',
+        is_current: true,
+        valid_from: '2024-01-01',
+      },
+      {
+        id: 'jj2',
+        field: 'age_max',
+        field_display: 'Maximum Entry Age',
+        operator: 'lte',
+        value: 50,
+        unit: 'years',
+        original_clause: 'Enrolment age limit is capped at 50 years (risk cover continues till age 55).',
+        mutability: 'IMMUTABLE',
+        confidence: 0.98,
+        language: 'en',
+        is_current: true,
+        valid_from: '2024-01-01',
+      },
+      {
+        id: 'jj3',
+        field: 'has_bank_account',
+        field_display: 'Bank Account with Auto-Debit',
+        operator: 'eq',
+        value: true,
+        original_clause: 'Must possess a savings bank account with consent for auto-debit of ₹436 annual premium.',
+        mutability: 'MUTABLE',
+        confidence: 0.97,
+        language: 'en',
+        is_current: true,
+        valid_from: '2024-01-01',
+      },
+    ],
+    documents: [
+      { id: 'jj_d1', title: 'Aadhaar Card with e-KYC', required_for_fields: ['identity'], issuing_authority: 'UIDAI' },
+      { id: 'jj_d2', title: 'Savings Bank Account Mandate', required_for_fields: ['has_bank_account'], issuing_authority: 'Bank / Post Office' },
+    ],
+    benefits: [
+      { id: 'jj_b1', title: 'Term Life Insurance Cover', amount: '₹2,00,000', frequency: 'Lump-sum', description: 'Payable to nominee in the event of death due to any reason.' },
+    ],
+    exclusions: [
+      { id: 'jj_ex1', title: 'Over 50 Years at Enrolment', condition_field: 'age_over_50', condition_value: 'true', original_clause: 'Persons joining after age 50 are disqualified.', overrides_all: true },
+    ],
+    demo_profiles: {
+      eligible: {
+        name: 'Eligible Adult (Age 28)',
+        verdict: 'ELIGIBLE',
+        facts: { scheme_id: 'pm-jeevan-jyoti-bima', age_min: 28, age_max: 28, has_bank_account: true }
+      },
+      needs_info: {
+        name: 'Adult (Missing Bank Mandate Fact)',
+        verdict: 'NEEDS_MORE_INFO',
+        facts: { scheme_id: 'pm-jeevan-jyoti-bima', age_min: 28, age_max: 28, has_bank_account: null }
+      },
+      ineligible: {
+        name: 'Applicant Age 54 (Exceeds Entry Age Limit)',
+        verdict: 'INELIGIBLE',
+        facts: { scheme_id: 'pm-jeevan-jyoti-bima', age_min: 54, age_max: 54, has_bank_account: true }
+      }
+    }
+  },
+
+  // 17. Chief Minister Comprehensive Health Insurance Scheme (CMCHIS) - Health, Tamil
+  {
+    id: 'tn-cmchis-health-insurance',
+    title: 'Chief Minister Comprehensive Health Insurance Scheme (CMCHIS - கலைஞர் காப்பீட்டுத் திட்டம்)',
+    short_name: 'TN CMCHIS Health Scheme',
+    category: 'Health',
+    state: 'Tamil Nadu',
+    language: 'Tamil',
+    version: 'v2.3',
+    last_amended: '2024-08-15',
+    summary: 'தமிழ்நாடு முதல்வரின் விரிவான மருத்துவக் காப்பீட்டுத் திட்டம் — குடும்பத்தின் ஆண்டு வருமானம் ரூ.1.20 லட்சத்திற்கு மிகாமல் இருக்கும் குடும்பங்களுக்கு ஆண்டுக்கு ரூ. 5 லட்சம் வரையிலான பணமில்லா மருத்துவ சிகிச்சை.',
+    key_benefit: 'ஆண்டுக்கு ₹5,00,000 வரை இலவச பணமில்லா மருத்துவ சிகிச்சை (Cashless Hospital Cover)',
+    source_url: 'https://www.cmchistn.com',
+    verified_on: '2024-08-15',
+    conditions: [
+      {
+        id: 'cm1',
+        field: 'residence_state',
+        field_display: 'State of Residence',
+        operator: 'eq',
+        value: 'Tamil Nadu',
+        original_clause: 'விண்ணப்பதாரர் தமிழ்நாட்டில் வசிப்பவராக இருத்தல் வேண்டும்.',
+        mutability: 'IMMUTABLE',
+        confidence: 0.98,
+        language: 'ta',
+        is_current: true,
+        valid_from: '2024-01-01',
+      },
+      {
+        id: 'cm2',
+        field: 'income_threshold',
+        field_display: 'Annual Family Income Limit',
+        operator: 'lte',
+        value: 120000,
+        unit: 'INR',
+        original_clause: 'குடும்பத்தின் ஆண்டு வருமானம் ரூ.1,20,000-க்கு மிகாமல் இருக்க வேண்டும்.',
+        mutability: 'MUTABLE',
+        confidence: 0.96,
+        language: 'ta',
+        is_current: true,
+        valid_from: '2024-01-01',
+      },
+    ],
+    documents: [
+      { id: 'cm_d1', title: 'Smart Family Ration Card', required_for_fields: ['residence_state'], issuing_authority: 'Civil Supplies Department' },
+      { id: 'cm_d2', title: 'Income Certificate (Revenue Authority)', required_for_fields: ['income_threshold'], issuing_authority: 'Revenue Department / VAO' },
+      { id: 'cm_d3', title: 'Family Members Aadhaar Cards', required_for_fields: ['identity'], issuing_authority: 'UIDAI' },
+    ],
+    benefits: [
+      { id: 'cm_b1', title: 'Cashless Hospitalization Cover', amount: '₹5,00,000', frequency: 'Annual Floater', description: 'Comprehensive cashless coverage for 1,090 medical and surgical procedures.' },
+    ],
+    exclusions: [
+      { id: 'cm_ex1', title: 'Government Employees Covered by NHIS', condition_field: 'government_employment_status', condition_value: 'true', original_clause: 'தமிழ்நாடு அரசு ஊழியர்கள் மற்றும் ஓய்வூதியதாரர்கள் தனி காப்பீட்டின் கீழ் உள்ளதால் விலக்களிக்கப்படுகிறார்கள்.', overrides_all: true },
+    ],
+    demo_profiles: {
+      eligible: {
+        name: 'Eligible TN Family (Income ₹95,000)',
+        verdict: 'ELIGIBLE',
+        facts: { scheme_id: 'tn-cmchis-health-insurance', residence_state: 'Tamil Nadu', income_threshold: 95000, government_employment_status: false }
+      },
+      needs_info: {
+        name: 'TN Resident (Missing Income Certificate Fact)',
+        verdict: 'NEEDS_MORE_INFO',
+        facts: { scheme_id: 'tn-cmchis-health-insurance', residence_state: 'Tamil Nadu', income_threshold: null, government_employment_status: false }
+      },
+      ineligible: {
+        name: 'High Income Family (Income ₹2.4L)',
+        verdict: 'INELIGIBLE',
+        facts: { scheme_id: 'tn-cmchis-health-insurance', residence_state: 'Tamil Nadu', income_threshold: 240000, government_employment_status: false }
+      }
+    }
+  },
+
+  // 18. AP YSR Rythu Bharosa - Agriculture, Telugu
+  {
+    id: 'ap-ysr-rythu-bharosa',
+    title: 'వైఎస్సార్ రైతు భరోసా - పీఎం కిసాన్ (AP YSR Rythu Bharosa)',
+    short_name: 'AP YSR Rythu Bharosa',
+    category: 'Agriculture',
+    state: 'Andhra Pradesh',
+    language: 'Telugu',
+    version: 'v3.1',
+    last_amended: '2024-05-20',
+    summary: 'ఆంధ్రప్రదేశ్ రైతు కుటుంబాలకు పంట పెట్టుబడి సాయంగా ఏటా ₹13,500 ప్రత్యక్ష ఆర్థిక సహాయం అందించే సమగ్ర సంక్షేమ పథకం.',
+    key_benefit: 'ఏటా ₹13,500 పంట పెట్టుబడి సాయం (Direct DBT in 3 installments)',
+    source_url: 'https://ysrrythubharosa.ap.gov.in',
+    verified_on: '2024-05-20',
+    conditions: [
+      {
+        id: 'rb1',
+        field: 'residence_state',
+        field_display: 'State of Residence',
+        operator: 'eq',
+        value: 'Andhra Pradesh',
+        original_clause: 'ఆంధ్రప్రదేశ్ రాష్ట్రంలో శాశ్వత నివాసి అయి ఉండాలి.',
+        mutability: 'IMMUTABLE',
+        confidence: 0.98,
+        language: 'te',
+        is_current: true,
+        valid_from: '2024-01-01',
+      },
+      {
+        id: 'rb2',
+        field: 'occupation',
+        field_display: 'Occupation Type',
+        operator: 'eq',
+        value: 'farmer',
+        original_clause: 'రైతు లేదా కౌలు రైతుగా వ్యవసాయం చేయాలి.',
+        mutability: 'MUTABLE',
+        confidence: 0.97,
+        language: 'te',
+        is_current: true,
+        valid_from: '2024-01-01',
+      },
+      {
+        id: 'rb3',
+        field: 'land_ownership',
+        field_display: 'Cultivable Landholding',
+        operator: 'lte',
+        value: 5.0,
+        unit: 'hectares',
+        original_clause: 'గరిష్టంగా 5 హెక్టార్ల వరకు సాగు భూమి కలిగిన చిన్న మరియు సన్నకారు రైతులు.',
+        mutability: 'MUTABLE',
+        confidence: 0.95,
+        language: 'te',
+        is_current: true,
+        valid_from: '2024-01-01',
+      },
+    ],
+    documents: [
+      { id: 'rb_d1', title: 'Pattadar Passbook / 1B / CCRC Card', required_for_fields: ['land_ownership'], issuing_authority: 'Revenue Department AP' },
+      { id: 'rb_d2', title: 'Aadhaar Card Linked Bank Account', required_for_fields: ['identity'], issuing_authority: 'UIDAI & Bank' },
+    ],
+    benefits: [
+      { id: 'rb_b1', title: 'Input Investment Subsidy', amount: '₹13,500 / year', frequency: 'Annual (3 Installments)', description: 'Direct DBT: ₹7,500 (Kharif) + ₹4,000 (Rabi) + ₹2,000 (Sankranti).' },
+    ],
+    exclusions: [
+      { id: 'rb_ex1', title: 'Income Tax Payers', condition_field: 'income_tax_payer_status', condition_value: 'true', original_clause: 'గత అసెస్‌మెంట్ సంవత్సరంలో ఆదాయపు పన్ను చెల్లించిన వారు అర్హులు కారు.', overrides_all: true },
+      { id: 'rb_ex2', title: 'Constitutional Post Holders', condition_field: 'constitutional_post_holder', condition_value: 'true', original_clause: 'రాజ్యాంగ పదవులు నిర్వహించిన వారు మినహాయించబడ్డారు.', overrides_all: true },
+    ],
+    demo_profiles: {
+      eligible: {
+        name: 'Eligible AP Farmer (2.5 Hectares)',
+        verdict: 'ELIGIBLE',
+        facts: { scheme_id: 'ap-ysr-rythu-bharosa', residence_state: 'Andhra Pradesh', occupation: 'farmer', land_ownership: 2.5, income_tax_payer_status: false, constitutional_post_holder: false }
+      },
+      needs_info: {
+        name: 'AP Farmer (Missing Landholding Size Fact)',
+        verdict: 'NEEDS_MORE_INFO',
+        facts: { scheme_id: 'ap-ysr-rythu-bharosa', residence_state: 'Andhra Pradesh', occupation: 'farmer', land_ownership: null, income_tax_payer_status: false, constitutional_post_holder: false }
+      },
+      ineligible: {
+        name: 'Taxpayer Farmer (Exclusion Hit)',
+        verdict: 'INELIGIBLE',
+        facts: { scheme_id: 'ap-ysr-rythu-bharosa', residence_state: 'Andhra Pradesh', occupation: 'farmer', land_ownership: 2.5, income_tax_payer_status: true, constitutional_post_holder: false }
+      }
+    }
+  },
+
+  // 19. PM SVANidhi (Street Vendor’s AtmaNirbhar Nidhi) - Livelihood, Hindi
+  {
+    id: 'pm-svanidhi-scheme',
+    title: 'प्रधानमंत्री स्ट्रीट वेंडर्स आत्मनिर्भर निधि (PM SVANidhi)',
+    short_name: 'PM SVANidhi Micro-Credit',
+    category: 'Livelihood',
+    state: 'Central',
+    language: 'Hindi',
+    version: 'v2.0',
+    last_amended: '2024-04-10',
+    summary: 'शहरी एवं अर्ध-शहरी पथ विक्रेताओं (स्ट्रीट वेंडर्स) के लिए ₹10,000 से ₹50,000 तक का संपार्श्विक-मुक्त (collateral-free) कार्यशील पूंजी ऋण व 7% ब्याज सब्सिडी।',
+    key_benefit: '₹10,000 - ₹50,000 संपार्श्विक-मुक्त सस्ता कार्यशील पूंजी ऋण + 7% ब्याज सब्सिडी',
+    source_url: 'https://pmsvanidhi.mohua.gov.in',
+    verified_on: '2024-04-10',
+    conditions: [
+      {
+        id: 'sv1',
+        field: 'occupation',
+        field_display: 'Occupation Type',
+        operator: 'in',
+        value: ['street_vendor', 'artisan', 'vendor'],
+        original_clause: 'शहरी क्षेत्रों में वेंडिंग/फेरी का कार्य करने वाले पथ विक्रेता।',
+        mutability: 'MUTABLE',
+        confidence: 0.98,
+        language: 'hi',
+        is_current: true,
+        valid_from: '2024-01-01',
+      },
+      {
+        id: 'sv2',
+        field: 'age_min',
+        field_display: 'Minimum Age',
+        operator: 'gte',
+        value: 18,
+        unit: 'years',
+        original_clause: 'आवेदक की न्यूनतम आयु 18 वर्ष या उससे अधिक होनी चाहिए।',
+        mutability: 'IMMUTABLE',
+        confidence: 0.99,
+        language: 'hi',
+        is_current: true,
+        valid_from: '2024-01-01',
+      },
+    ],
+    documents: [
+      { id: 'sv_d1', title: 'Certificate of Vending (CoV) / Urban Local Body ID Card', required_for_fields: ['occupation'], issuing_authority: 'Municipal Corporation / ULB' },
+      { id: 'sv_d2', title: 'Aadhaar Card Linked Mobile', required_for_fields: ['identity'], issuing_authority: 'UIDAI' },
+      { id: 'sv_d3', title: 'Bank Account Passbook', required_for_fields: ['bank_account'], issuing_authority: 'Commercial / Regional Rural Bank' },
+    ],
+    benefits: [
+      { id: 'sv_b1', title: '1st Tranche Working Capital Loan', amount: '₹10,000', frequency: '1-year tenure', description: 'Collateral-free micro-credit.' },
+      { id: 'sv_b2', title: 'Enhanced 2nd & 3rd Tranches', amount: 'Up to ₹50,000', frequency: 'On timely repayment', description: 'Second loan ₹20,000, Third loan ₹50,000.' },
+      { id: 'sv_b3', title: '7% Annual Interest Subsidy', description: 'Directly credited into bank account quarterly on timely EMI repayment.' },
+    ],
+    exclusions: [
+      { id: 'sv_ex1', title: 'Active Credit Defaulters', condition_field: 'active_loan_defaulter', condition_value: 'true', original_clause: 'Non-performing asset (NPA) or wilful defaulters are disqualified.', overrides_all: true },
+    ],
+    demo_profiles: {
+      eligible: {
+        name: 'Eligible Urban Street Vendor (Age 31)',
+        verdict: 'ELIGIBLE',
+        facts: { scheme_id: 'pm-svanidhi-scheme', occupation: 'street_vendor', age_min: 31, active_loan_defaulter: false }
+      },
+      needs_info: {
+        name: 'Vendor (Missing Vending Status Fact)',
+        verdict: 'NEEDS_MORE_INFO',
+        facts: { scheme_id: 'pm-svanidhi-scheme', occupation: null, age_min: 31, active_loan_defaulter: false }
+      },
+      ineligible: {
+        name: 'Credit Defaulter (Exclusion Hit)',
+        verdict: 'INELIGIBLE',
+        facts: { scheme_id: 'pm-svanidhi-scheme', occupation: 'street_vendor', age_min: 31, active_loan_defaulter: true }
+      }
+    }
+  },
+
+  // 20. Indira Gandhi National Widow Pension Scheme (IGNWPS) - Pension, English
+  {
+    id: 'ignwps-widow-pension',
+    title: 'Indira Gandhi National Widow Pension Scheme (IGNWPS)',
+    short_name: 'IGNWPS Widow Pension',
+    category: 'Pension',
+    state: 'Central / All States',
+    language: 'English',
+    version: 'v1.8',
+    last_amended: '2024-03-01',
+    summary: 'National Social Assistance Programme component providing monthly financial security pension to destitute widows aged 40–79 living below the poverty line.',
+    key_benefit: '₹1,000 - ₹1,500 / month direct social security pension',
+    source_url: 'https://nsap.nic.in',
+    verified_on: '2024-03-01',
+    conditions: [
+      {
+        id: 'nw1',
+        field: 'gender',
+        field_display: 'Gender',
+        operator: 'eq',
+        value: 'female',
+        original_clause: 'Applicant must be a female widow.',
+        mutability: 'IMMUTABLE',
+        confidence: 0.99,
+        language: 'en',
+        is_current: true,
+        valid_from: '2024-01-01',
+      },
+      {
+        id: 'nw2',
+        field: 'age_min',
+        field_display: 'Minimum Age',
+        operator: 'gte',
+        value: 40,
+        unit: 'years',
+        original_clause: 'Widow must have completed 40 years of age.',
+        mutability: 'IMMUTABLE',
+        confidence: 0.98,
+        language: 'en',
+        is_current: true,
+        valid_from: '2024-01-01',
+      },
+      {
+        id: 'nw3',
+        field: 'age_max',
+        field_display: 'Maximum Age',
+        operator: 'lte',
+        value: 79,
+        unit: 'years',
+        original_clause: 'Age must not exceed 79 years (at 80 years transitions to higher IGNOAPS pension).',
+        mutability: 'IMMUTABLE',
+        confidence: 0.97,
+        language: 'en',
+        is_current: true,
+        valid_from: '2024-01-01',
+      },
+      {
+        id: 'nw4',
+        field: 'bpl_status',
+        field_display: 'BPL Card Status',
+        operator: 'eq',
+        value: true,
+        original_clause: 'Applicant must belong to a household living Below Poverty Line (BPL).',
+        mutability: 'MUTABLE',
+        confidence: 0.96,
+        language: 'en',
+        is_current: true,
+        valid_from: '2024-01-01',
+      },
+    ],
+    documents: [
+      { id: 'nw_d1', title: 'Death Certificate of Husband', required_for_fields: ['marital_status'], issuing_authority: 'Municipal / Revenue Registrar' },
+      { id: 'nw_d2', title: 'BPL Ration Card / SECC Record', required_for_fields: ['bpl_status'], issuing_authority: 'Food & Civil Supplies Dept' },
+      { id: 'nw_d3', title: 'Age Proof (Voter ID / Birth Certificate)', required_for_fields: ['age_min'], issuing_authority: 'Election Commission / Health Dept' },
+      { id: 'nw_d4', title: 'Aadhaar Linked Bank / Post Office Passbook', required_for_fields: ['bank_account'], issuing_authority: 'Bank / India Post' },
+    ],
+    benefits: [
+      { id: 'nw_b1', title: 'Monthly Social Security Pension', amount: '₹1,000 / mo', frequency: 'Monthly', description: 'Combined Central & State monthly pension directly deposited into beneficiary account.' },
+    ],
+    exclusions: [
+      { id: 'nw_ex1', title: 'Government Pensioner / Employee', condition_field: 'government_employment_status', condition_value: 'true', original_clause: 'Beneficiaries of regular government family pensions are excluded.', overrides_all: true },
+      { id: 'nw_ex2', title: 'Remarried Status', condition_field: 'remarried', condition_value: 'true', original_clause: 'Pension terminates if the widow remarries.', overrides_all: true },
+    ],
+    demo_profiles: {
+      eligible: {
+        name: 'Eligible BPL Widow (Age 48)',
+        verdict: 'ELIGIBLE',
+        facts: { scheme_id: 'ignwps-widow-pension', gender: 'female', age_min: 48, age_max: 48, bpl_status: true, government_employment_status: false, remarried: false }
+      },
+      needs_info: {
+        name: 'Widow (Missing BPL Status Fact)',
+        verdict: 'NEEDS_MORE_INFO',
+        facts: { scheme_id: 'ignwps-widow-pension', gender: 'female', age_min: 48, age_max: 48, bpl_status: null, government_employment_status: false, remarried: false }
+      },
+      ineligible: {
+        name: 'Government Pensioner Family (Exclusion Hit)',
+        verdict: 'INELIGIBLE',
+        facts: { scheme_id: 'ignwps-widow-pension', gender: 'female', age_min: 48, age_max: 48, bpl_status: true, government_employment_status: true, remarried: false }
+      }
+    }
   }
 ];
 
@@ -1280,9 +1876,9 @@ export const MOCK_BENCHMARK_METRICS: BenchmarkMetrics = {
   evaluation_mode: 'Production AuraDB + In-Memory Dual Engine',
   hand_derived_verdict_accuracy: 1.0,
   confusion_matrix: {
-    eligible: { eligible: 13, ineligible: 0, needs_more_info: 0 },
-    ineligible: { eligible: 0, ineligible: 13, needs_more_info: 0 },
-    needs_more_info: { eligible: 0, ineligible: 0, needs_more_info: 13 },
+    eligible: { eligible: 20, ineligible: 0, needs_more_info: 0 },
+    ineligible: { eligible: 0, ineligible: 20, needs_more_info: 0 },
+    needs_more_info: { eligible: 0, ineligible: 0, needs_more_info: 20 },
   },
   multilingual_extraction: {
     precision: 1.0,

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Search, Filter, Grid, List, ArrowRight, CheckSquare, Square, X, ExternalLink, Sparkles, ChevronLeft, ChevronRight, ShieldAlert, Award, Eye } from 'lucide-react';
 import { GlowCard } from '../components/GlowCard';
 import { Badge } from '../components/Badge';
@@ -8,6 +9,7 @@ import { MOCK_SCHEMES } from '../api/mockData';
 import { Scheme } from '../types';
 
 export const BrowseSchemesPage: React.FC = () => {
+  const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
@@ -85,8 +87,7 @@ export const BrowseSchemesPage: React.FC = () => {
         <div className="flex items-center gap-3">
           <ShieldAlert className="w-5 h-5 text-amber-400 shrink-0" />
           <span>
-            <strong>Public Demonstration System:</strong> Built strictly from verified public government notifications and gazette guidelines.
-            Not an official eligibility decision. Always verify your claim on the designated government portal.
+            {t('catalogue.disclaimer')}
           </span>
         </div>
         <span className="font-mono text-[11px] text-amber-400 shrink-0 bg-amber-500/20 px-2 py-1 rounded-md">
@@ -97,9 +98,9 @@ export const BrowseSchemesPage: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-white mb-2">Government Welfare Schemes Catalogue</h1>
+          <h1 className="text-3xl font-bold text-white mb-2">{t('catalogue.title')}</h1>
           <p className="text-xs text-dark-muted">
-            Explore 13+ official central and state welfare programs across 7 categories and 4 languages (English, Hindi, Tamil, Telugu).
+            {t('catalogue.subtitle')}
           </p>
         </div>
 
@@ -127,7 +128,7 @@ export const BrowseSchemesPage: React.FC = () => {
             <Search className="w-4 h-4 text-dark-muted absolute left-3.5 top-3" />
             <input
               type="text"
-              placeholder="Search by scheme name, benefit, or keywords..."
+              placeholder={t('catalogue.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }}
               className="w-full bg-white/5 border border-white/10 rounded-full pl-10 pr-4 py-2.5 text-xs text-white placeholder-dark-muted focus:outline-none focus:border-brand-cyan/50"
@@ -141,7 +142,7 @@ export const BrowseSchemesPage: React.FC = () => {
 
           {/* Language Chips */}
           <div className="flex items-center gap-1.5 overflow-x-auto w-full lg:w-auto pb-1 lg:pb-0">
-            <span className="text-[11px] font-semibold text-dark-muted uppercase mr-1">Language:</span>
+            <span className="text-[11px] font-semibold text-dark-muted uppercase mr-1">{t('catalogue.language')}</span>
             {languages.map((lang) => (
               <button
                 key={lang}
@@ -164,10 +165,10 @@ export const BrowseSchemesPage: React.FC = () => {
               onChange={(e: any) => setSortBy(e.target.value)}
               className="bg-white/5 border border-white/10 text-white rounded-full px-3 py-1.5 text-xs focus:outline-none"
             >
-              <option value="featured">Sort: Featured</option>
-              <option value="name">Sort: Scheme Name</option>
-              <option value="category">Sort: Category</option>
-              <option value="benefit">Sort: Concrete Benefit</option>
+              <option value="featured">{t('catalogue.sortFeatured')}</option>
+              <option value="name">{t('catalogue.sortName')}</option>
+              <option value="category">{t('catalogue.sortCategory')}</option>
+              <option value="benefit">{t('catalogue.sortBenefit')}</option>
             </select>
 
             <div className="flex items-center gap-1 bg-white/5 p-1 rounded-full border border-white/10">
@@ -191,7 +192,7 @@ export const BrowseSchemesPage: React.FC = () => {
 
         {/* Category Filter Chips */}
         <div className="pt-2 border-t border-white/5 flex items-center gap-2 overflow-x-auto pb-2">
-          <span className="text-[11px] font-semibold text-dark-muted uppercase mr-1 shrink-0">Category:</span>
+          <span className="text-[11px] font-semibold text-dark-muted uppercase mr-1 shrink-0">{t('catalogue.category')}</span>
           {categories.map((cat) => (
             <button
               key={cat}
@@ -202,7 +203,7 @@ export const BrowseSchemesPage: React.FC = () => {
                   : 'bg-white/5 text-dark-muted hover:text-white hover:bg-white/10'
               }`}
             >
-              {cat}
+              {t(`categories.${cat}`, cat)}
             </button>
           ))}
         </div>
@@ -233,7 +234,7 @@ export const BrowseSchemesPage: React.FC = () => {
                       ) : (
                         <Square className="w-4 h-4" />
                       )}
-                      <span>Compare</span>
+                      <span>{t('catalogue.compare')}</span>
                     </button>
                   </div>
 
@@ -266,11 +267,11 @@ export const BrowseSchemesPage: React.FC = () => {
 
                   <div className="space-y-1.5 pt-3 border-t border-white/10 text-xs text-dark-muted">
                     <div className="flex justify-between">
-                      <span>Conditions Modeled:</span>
-                      <span className="text-white font-mono">{scheme.conditions.length} Rules</span>
+                      <span>{t('catalogue.conditionsModeled')}</span>
+                      <span className="text-white font-mono">{scheme.conditions.length} {t('catalogue.rules')}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span>Verified On:</span>
+                      <span>{t('catalogue.verifiedOn')}</span>
                       <span className="text-white font-mono text-[11px]">{scheme.verified_on || 'Public Portal'}</span>
                     </div>
                   </div>
@@ -280,12 +281,12 @@ export const BrowseSchemesPage: React.FC = () => {
                       onClick={(e) => { e.stopPropagation(); navigate(`/check/${scheme.id}`); }}
                       className="flex-1 bg-brand-gradient text-dark-bg font-bold text-xs py-2 rounded-xl text-center shadow-md hover:opacity-90 transition"
                     >
-                      Check Eligibility
+                      {t('catalogue.checkEligibility')}
                     </button>
                     <button
                       onClick={(e) => { e.stopPropagation(); setQuickViewScheme(scheme); }}
                       className="px-2.5 py-2 bg-brand-cyan/10 border border-brand-cyan/20 hover:bg-brand-cyan/20 text-brand-cyan rounded-xl text-xs font-medium transition flex items-center gap-1"
-                      title="Quick Preview"
+                      title={t('catalogue.quickPreview')}
                     >
                       <Eye className="w-3.5 h-3.5" />
                     </button>
@@ -293,7 +294,7 @@ export const BrowseSchemesPage: React.FC = () => {
                       onClick={(e) => { e.stopPropagation(); navigate(`/schemes/${scheme.id}`); }}
                       className="px-3 py-2 bg-white/5 border border-white/10 hover:bg-white/10 text-white rounded-xl text-xs font-medium transition"
                     >
-                      Details
+                      {t('catalogue.details')}
                     </button>
                   </div>
                 </GlowCard>
@@ -329,12 +330,12 @@ export const BrowseSchemesPage: React.FC = () => {
                     onClick={(e) => { e.stopPropagation(); navigate(`/check/${scheme.id}`); }}
                     className="bg-brand-gradient text-dark-bg font-bold text-xs px-3.5 py-2 rounded-xl text-center shadow-md"
                   >
-                    Check
+                    {t('catalogue.checkEligibility')}
                   </button>
                   <button
                     onClick={(e) => { e.stopPropagation(); setQuickViewScheme(scheme); }}
                     className="p-2 bg-brand-cyan/10 border border-brand-cyan/20 text-brand-cyan hover:bg-brand-cyan/20 rounded-xl text-xs transition"
-                    title="Quick Preview"
+                    title={t('catalogue.quickPreview')}
                   >
                     <Eye className="w-3.5 h-3.5" />
                   </button>
@@ -342,7 +343,7 @@ export const BrowseSchemesPage: React.FC = () => {
                     onClick={(e) => { e.stopPropagation(); navigate(`/schemes/${scheme.id}`); }}
                     className="px-3 py-2 bg-white/5 border border-white/10 text-white rounded-xl text-xs"
                   >
-                    Details
+                    {t('catalogue.details')}
                   </button>
                 </div>
               </div>
@@ -352,15 +353,15 @@ export const BrowseSchemesPage: React.FC = () => {
       ) : (
         <div className="glass-card p-12 rounded-3xl text-center space-y-4 border border-white/10">
           <Award className="w-12 h-12 text-dark-muted mx-auto opacity-40" />
-          <h3 className="text-lg font-bold text-white">No Schemes Found</h3>
+          <h3 className="text-lg font-bold text-white">{t('catalogue.noSchemesFound')}</h3>
           <p className="text-xs text-dark-muted max-w-md mx-auto">
-            No welfare schemes matched your active filter criteria ({selectedCategory} category, {selectedLanguage} language).
+            {t('catalogue.noSchemesDesc')}
           </p>
           <button
             onClick={resetFilters}
             className="bg-brand-cyan text-dark-bg font-bold text-xs px-5 py-2.5 rounded-xl shadow-md"
           >
-            Browse All {MOCK_SCHEMES.length} Schemes
+            {t('catalogue.resetFilters')}
           </button>
         </div>
       )}
@@ -369,7 +370,7 @@ export const BrowseSchemesPage: React.FC = () => {
       {totalPages > 1 && (
         <div className="flex items-center justify-between p-4 glass-card rounded-2xl border border-white/10 text-xs">
           <span className="text-dark-muted font-mono">
-            Showing {(currentPage - 1) * itemsPerPage + 1} - {Math.min(currentPage * itemsPerPage, filteredSchemes.length)} of {filteredSchemes.length} schemes
+            {t('catalogue.showing')} {(currentPage - 1) * itemsPerPage + 1} - {Math.min(currentPage * itemsPerPage, filteredSchemes.length)} {t('catalogue.of')} {filteredSchemes.length}
           </span>
           <div className="flex items-center gap-2">
             <button
@@ -380,7 +381,7 @@ export const BrowseSchemesPage: React.FC = () => {
               <ChevronLeft className="w-4 h-4" />
             </button>
             <span className="font-mono text-white px-2">
-              Page {currentPage} of {totalPages}
+              {t('catalogue.page')} {currentPage} {t('catalogue.of')} {totalPages}
             </span>
             <button
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}

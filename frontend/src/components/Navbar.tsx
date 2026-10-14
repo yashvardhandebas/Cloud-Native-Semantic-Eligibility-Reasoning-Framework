@@ -30,13 +30,15 @@ export const Navbar: React.FC = () => {
     i18n.changeLanguage(lng);
   };
 
+  const currentLang = (i18n.resolvedLanguage || i18n.language || 'en').substring(0, 2);
+
   const navLinks = [
-    { path: '/schemes', label: 'Schemes', badge: `${MOCK_SCHEMES.length}` },
-    { path: '/check', label: 'Check Eligibility' },
-    { path: '/matches', label: 'My Matches', isAi: true },
-    { path: '/compare', label: 'Compare' },
-    { path: '/amend', label: 'Amendment Sim' },
-    { path: '/evaluation', label: 'Benchmarks' },
+    { path: '/schemes', label: t('nav.schemes'), badge: `${MOCK_SCHEMES.length}` },
+    { path: '/check', label: t('nav.checkEligibility') },
+    { path: '/matches', label: t('nav.matches'), isAi: true },
+    { path: '/compare', label: t('nav.compare') },
+    { path: '/amend', label: t('nav.amendmentSim') },
+    { path: '/evaluation', label: t('nav.benchmarks') },
   ];
 
   const isActive = (path: string) => {
@@ -66,10 +68,10 @@ export const Navbar: React.FC = () => {
               </div>
               <div className="flex flex-col">
                 <span className="font-extrabold text-base tracking-tight text-white group-hover:text-brand-cyan transition leading-none">
-                  SchemeSense
+                  {t('appName')}
                 </span>
                 <span className="text-[10px] text-dark-muted font-mono tracking-wider uppercase mt-0.5">
-                  Semantic GovCloud
+                  {t('nav.govCloud')}
                 </span>
               </div>
             </Link>
@@ -81,7 +83,7 @@ export const Navbar: React.FC = () => {
               className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 hover:bg-emerald-500/20 text-emerald-400 text-[11px] font-mono font-medium transition cursor-pointer"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span>AuraDB Live</span>
+              <span>{t('nav.auraLive')}</span>
             </button>
           </div>
 
@@ -124,7 +126,7 @@ export const Navbar: React.FC = () => {
               title="Global search (Ctrl+K)"
             >
               <Search className="w-3.5 h-3.5 text-zinc-400" />
-              <span className="hidden sm:inline font-normal">Search schemes...</span>
+              <span className="hidden sm:inline font-normal">{t('nav.searchPlaceholder')}</span>
               <kbd className="hidden sm:inline text-[10px] font-mono bg-white/10 text-zinc-300 px-1.5 py-0.5 rounded border border-white/10">
                 ⌘K
               </kbd>
@@ -134,7 +136,7 @@ export const Navbar: React.FC = () => {
             <div className="flex items-center gap-1 bg-white/5 border border-white/10 rounded-xl px-2.5 py-1">
               <Globe className="w-3.5 h-3.5 text-zinc-400" />
               <select
-                value={i18n.language}
+                value={currentLang}
                 onChange={(e) => changeLanguage(e.target.value)}
                 className="bg-transparent text-xs text-white focus:outline-none cursor-pointer font-medium pr-1"
                 aria-label="Select Language"
@@ -151,7 +153,7 @@ export const Navbar: React.FC = () => {
               to="/check"
               className="hidden md:inline-flex items-center gap-1.5 bg-gradient-to-r from-brand-cyan to-brand-emerald text-[#070709] font-bold text-xs px-3.5 py-2 rounded-xl hover:opacity-95 transition shadow-sm shrink-0"
             >
-              <span>Check Eligibility</span>
+              <span>{t('nav.checkNow')}</span>
               <ChevronRight className="w-3.5 h-3.5" />
             </Link>
 
@@ -175,9 +177,9 @@ export const Navbar: React.FC = () => {
                 className="flex items-center gap-2 text-xs font-mono text-emerald-400"
               >
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                Neo4j AuraDB: Connected
+                Neo4j AuraDB: {t('nav.connected')}
               </button>
-              <span className="text-[11px] font-mono text-dark-muted">13 Schemes Active</span>
+              <span className="text-[11px] font-mono text-dark-muted">{MOCK_SCHEMES.length} Schemes Active</span>
             </div>
 
             <div className="grid grid-cols-1 gap-1.5">
@@ -209,7 +211,7 @@ export const Navbar: React.FC = () => {
                 onClick={() => setMobileMenuOpen(false)}
                 className="w-full bg-gradient-to-r from-brand-cyan to-brand-emerald text-[#070709] font-bold text-xs py-2.5 rounded-xl flex items-center justify-center gap-1.5 shadow-md"
               >
-                Start Eligibility Reasoning <ArrowRight className="w-3.5 h-3.5" />
+                {t('nav.startReasoning')} <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
           </div>
